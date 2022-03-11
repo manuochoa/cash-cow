@@ -1,0 +1,162 @@
+@import "../../../assets/scss/app.scss";
+
+.clockBlock {
+  background: #FFFFFF;
+  box-shadow: 0px 12px 26px rgba(30, 33, 85, 0.04);
+  border-radius: 16px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  .clock {
+    display: block;
+    width: 270px;
+
+    @include desktop() {
+      width: 410px;
+    }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 234px;
+    position: relative;
+
+    @include desktop() {
+      width: 292px;
+    }
+
+    .text {
+      @include HessGothic();
+      font-size: 26px;
+      line-height: 32px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+
+      @include desktop() {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      span:nth-child(1) {
+        color: #67F6C0;
+        margin-right: 12px;
+
+      }
+    }
+  }
+
+  .field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 264px;
+
+    @include desktop() {
+      width: 412px;
+    }
+
+    &_first {
+      margin-top: 12px;
+    }
+
+    &_second {
+      padding-top: 8px;
+      border-top: 1px solid rgba(13, 13, 61, 0.1);
+      margin-top: 8px;
+
+      @include desktop() {
+        padding-top: 12px;
+        margin-top: 12px;
+      }
+    }
+
+    .left {
+      @include CenturyGothicRegular();
+      font-size: 14px;
+      line-height: 20px;
+      opacity: 0.5;
+
+      @include desktop() {
+        font-size: 16px;
+      }
+    }
+
+    .right {
+      @include CenturyGothicBold();
+      font-size: 14px;
+      line-height: 20px;
+
+      @include desktop() {
+        font-size: 16px;
+      }
+
+      .green {
+        color: #67F6C0;
+      }
+
+    }
+  }
+
+  .buttons {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px 16px;
+
+    @include desktop() {
+      padding: 24px;
+    }
+
+    .firstBtn {
+      border: 1px solid rgba(13, 13, 61, 0.1);
+      box-sizing: border-box;
+      border-radius: 12px;
+      height: 48px;
+      cursor: pointer;
+      background: none;
+      @include center();
+
+      span {
+        @include CenturyGothicBold();
+        font-size: 14px;
+        line-height: 24px;
+
+        @include desktop() {
+          font-size: 16px;
+        }
+
+        &:last-child {
+          color: #FE8846;
+        }
+      }
+    }
+
+    .secondBtn {
+      background: #67F6C0;
+      border: 1px solid #67F6C0;
+      box-sizing: border-box;
+      border-radius: 12px;
+      margin-top: 8px;
+      height: 48px;
+      cursor: pointer;
+      @include center();
+      @include CenturyGothicBold();
+      font-size: 14px;
+      line-height: 24px;
+
+      @include desktop() {
+        font-size: 16px;
+      }
+    }
+
+
+  }
+
+
+}

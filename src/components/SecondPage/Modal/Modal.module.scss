@@ -1,0 +1,151 @@
+@import "../../../assets/scss/app.scss";
+
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(13, 13, 61, 0.2);
+  backdrop-filter: blur(8px);
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100vw - 80px);
+    padding: 40px 18px 30px;
+    border-radius: 16px;
+    background: url(../../../assets/png/form-mobule.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+
+    @include desktop() {
+      width: 732px;
+      padding: 80px 66px 85px;
+      border-radius: 26px;
+      background: url(../../../assets/png/form-desktop.png);
+
+    }
+
+    .close {
+      cursor: pointer;
+      background: none;
+      border: none;
+
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 24px;
+      height: 24px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+
+        @include desktop() {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      @include desktop() {
+        top: 30px;
+        right: 30px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .title {
+      @include HessGothic();
+      font-size: 20px;
+      line-height: 28px;
+      text-align: center;
+
+      @include desktop() {
+        font-size: 26px;
+      }
+    }
+
+    .text {
+      margin-top: 16px;
+      @include CenturyGothicRegular();
+      font-size: 14px;
+      line-height: 26px;
+      opacity: 0.7;
+      text-align: center;
+
+      @include desktop() {
+        font-size: 16px;
+      }
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-row-gap: 12px;
+      margin-top: 36px;
+
+      @include desktop() {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 16px;
+        margin-top: 48px;
+      }
+
+      .btn {
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        background: #FFFFFF;
+        box-shadow: 0px 12px 28px rgba(178, 64, 223, 0.08);
+        border-radius: 8px;
+
+        &_selected {
+          background: #67F6C0;
+          border: 1px solid #0D0D3D;
+        }
+
+        p {
+          margin-top: 8px;
+          @include HessGothic();
+          font-size: 20px;
+          line-height: 30px;
+        }
+      }
+    }
+
+    .closeBtn {
+      border: none;
+      cursor: pointer;
+      background: #FFFFFF;
+      border-radius: 100px;
+      height: 56px;
+      @include center();
+      width: 100%;
+      margin-top: 36px;
+      @include CenturyGothicBold();
+      font-size: 16px;
+      line-height: 26px;
+      transition: 0.2s;
+
+      @include desktop() {
+        width: 200px;
+        margin: 60px auto 0;
+      }
+
+      &:hover {
+        color: #B6FBFF;
+      }
+
+    }
+  }
+}

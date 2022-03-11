@@ -1,0 +1,23 @@
+@mixin CenturyGothicRegular {
+  font-family: "Century Gothic Regular";
+  font-weight: 400;
+  font-style: normal;
+}
+
+@mixin CenturyGothicBold {
+  font-family: "Century Gothic Bold";
+  font-weight: 700;
+  font-style: normal;
+}
+
+@mixin HessGothic {
+  font-family: "Hess Gothic";
+  font-weight: 700;
+  font-style: normal;
+}
+
+@mixin ProximaNova {
+  font-family: "Proxima Nova";
+  font-weight: 400;
+  font-style: normal;
+}

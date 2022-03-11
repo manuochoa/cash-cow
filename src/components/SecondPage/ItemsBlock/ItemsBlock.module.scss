@@ -1,0 +1,98 @@
+@import "../../../assets/scss/app.scss";
+
+.itemsBlock {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-row-gap: 12px;
+  margin-top: 20px;
+
+  @include desktop() {
+    margin-top: 0;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 24px;
+  }
+
+  .item {
+    padding: 16px 16px 18px;
+    background: #FFFFFF;
+    box-shadow: 0px 12px 26px rgba(30, 33, 85, 0.04);
+    border-radius: 12px;
+
+    @include desktop() {
+      padding: 24px 24px 26px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 18px;
+        height: 18px;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        @include desktop {
+          width: 20px;
+          height: 20px;
+
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+
+      p {
+        margin-left: 8px;
+        @include CenturyGothicRegular();
+        font-size: 14px;
+        line-height: 26px;
+
+        @include desktop() {
+          font-size: 16px;
+          line-height: 26px;
+        }
+      }
+
+    }
+
+    .bottom {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+
+      @include desktop() {
+        margin-top: 16px;
+      }
+
+      p {
+        font-family: "Hess Gothic", sans-serif;
+        font-size: 26px;
+        line-height: 32px;
+        letter-spacing: -0.01em;
+
+        @include desktop() {
+          font-size: 32px;
+          line-height: 40px;
+        }
+
+        &:nth-child(1) {
+          color: #67F6C0;
+        }
+
+        &:nth-child(2) {
+          margin-left: 8px;
+
+          @include desktop() {
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+  }
+}

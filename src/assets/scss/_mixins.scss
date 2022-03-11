@@ -1,0 +1,53 @@
+@mixin desktop {
+  @media all and (min-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media all and (max-width: 1439px) {
+    @content;
+  }
+}
+
+@mixin onlyMobile($displayType: block) {
+  display: $displayType;
+  @content;
+
+  @include desktop() {
+    display: none;
+  }
+}
+
+@mixin onlyDesktop($displayType: block) {
+  display: none;
+
+  @include desktop {
+    display: $displayType;
+    @content;
+  }
+}
+
+@mixin center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+

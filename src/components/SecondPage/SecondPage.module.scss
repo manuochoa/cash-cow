@@ -1,0 +1,284 @@
+@import "../../assets/scss/app.scss";
+
+.secondPage {
+  padding: 18px 20px 78px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #B6FBFF;
+  background-image: url(../../assets/png/second-back-mobile.png);
+  background-repeat: no-repeat;
+  background-position: bottom 110px left 50%;
+
+  &_no_scroll {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+
+  @include desktop() {
+    padding: 16px 24px 24px;
+    background-image: url(../../assets/png/second-back.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        width: 41px;
+        height: 48px;
+      }
+
+      p {
+        @include HessGothic();
+        @include onlyDesktop() {
+          margin-left: 12px;
+          font-size: 26px;
+          line-height: 28px;
+        }
+
+      }
+    }
+
+    .btnWrapper {
+      position: relative;
+
+      .btn {
+        cursor: pointer;
+        border: none;
+        background: #FFF;
+        padding: 14px 28px;
+        border-radius: 100px;
+
+        .textNotConnect {
+          transition: 0.3s;
+        }
+
+        &:hover {
+          .textNotConnect {
+            color: #B6FBFF;
+          }
+        }
+
+
+        @include CenturyGothicBold();
+        font-size: 16px;
+        line-height: 24px;
+
+        @include desktop() {
+          padding: 16px 40px;
+        }
+
+        &_connected {
+          padding: 10px;
+
+          @include desktop() {
+            padding: 14px 22px;
+          }
+        }
+
+        .inner {
+          display: flex;
+          align-items: center;
+
+          .logo {
+            display: block;
+          }
+
+          p {
+            margin-left: 8px;
+            width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            @include ProximaNova();
+            font-size: 12px;
+            line-height: 14px;
+          }
+
+          .arrow {
+            margin-left: 6px;
+          }
+        }
+      }
+
+      .popup {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        transform: translate(0, 0%);
+        background: #FFF;
+        box-shadow: 0 16px 26px rgba(30, 33, 85, 0.12);
+        border-radius: 16px;
+        padding: 12px 16px;
+        width: 310px;
+
+        @include desktop() {
+          width: 330px;
+        }
+
+        .row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          p {
+            @include HessGothic();
+            font-size: 24px;
+            line-height: 32px;
+          }
+
+          button {
+            cursor: pointer;
+            background: none;
+            padding: 6px 14px;
+            border: 1px solid rgba(13, 13, 61, 0.1);
+            box-sizing: border-box;
+            border-radius: 6px;
+          }
+        }
+
+        .bottom {
+          margin-top: 16px;
+          display: flex;
+          align-items: center;
+
+          .logo {
+            width: 40px;
+            height: 40px;
+          }
+
+          .texts {
+            flex-grow: 1;
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            p:nth-child(1) {
+              @include ProximaNova();
+              font-size: 14px;
+              line-height: 14px;
+              width: 118px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            p:nth-child(2) {
+              margin-top: 6px;
+              @include CenturyGothicRegular();
+              font-size: 14px;
+              line-height: 14px;
+              opacity: 0.5;
+            }
+          }
+
+          .icons {
+            display: flex;
+
+            div:first-child {
+              margin-right: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mobile {
+    @include onlyMobile() {
+      margin-top: 32px;
+
+      .content {
+        margin-top: 20px;
+      }
+
+    }
+  }
+
+
+  .desktop {
+    @include onlyDesktop() {
+      margin-top: 16px;
+
+      .userBlock {
+        margin-top: 24px;
+      }
+
+      .doubleBlock {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 24px;
+      }
+    }
+  }
+
+  .footer {
+    @include onlyMobile() {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      padding-left: 49px;
+      padding-right: 40px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      box-shadow: 0px -12px 26px rgba(30, 33, 85, 0.04);
+
+      .item {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon {
+          width: 20px;
+          height: 20px;
+          opacity: 0.5;
+
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        p {
+          margin-top: 2px;
+          @include CenturyGothicRegular();
+          font-size: 10px;
+          line-height: 18px;
+          opacity: 0.5;
+        }
+
+        &_selected {
+          .icon {
+            opacity: 1;
+          }
+
+          p {
+            opacity: 1;
+          }
+        }
+
+      }
+
+
+    }
+  }
+
+}

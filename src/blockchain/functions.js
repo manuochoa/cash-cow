@@ -65,8 +65,21 @@ export const getUserInfo = async (address) => {
     let contractInfo = await contractInstance.getUserInfo(address);
     let allowance = await tokenInstance.allowance(address, minerAddress);
     let balance = await tokenInstance.balanceOf(address);
+    let dailyYield = await contractInstance.getEggsYield(
+      contractInfo._userDeposit
+    );
+    let availableEarnings = await contractInstance.getAvailableEarnings(
+      address
+    );
 
-    return { contractInfo, allowance, balance };
+    console.log(dailyYield[1] / 10 ** 18, "balance");
+    return {
+      contractInfo,
+      allowance,
+      balance,
+      dailyYield: dailyYield[1],
+      availableEarnings,
+    };
   } catch (error) {
     console.log(error, "getUserInfo");
   }

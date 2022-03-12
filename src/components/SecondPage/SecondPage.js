@@ -40,6 +40,11 @@ export const SecondPage = ({
   siteInfo,
   walletType,
   getInitialInfo,
+  connectMetamask,
+  connectWalletConnect,
+  disconnectWallet,
+  userAddress,
+  investExample,
 }) => {
   const [footerIndex, setFooterIndex] = useState(0);
   const [show, setShow] = useState(false);
@@ -58,6 +63,8 @@ export const SecondPage = ({
     >
       {show && (
         <Modal
+          connectMetamask={connectMetamask}
+          connectWalletConnect={connectWalletConnect}
           onClose={() => setShow(false)}
           onConnect={(wallet) => {
             setConnect(true);
@@ -78,18 +85,22 @@ export const SecondPage = ({
               [style.btn]: true,
               [style.btn_connected]: connect,
             })}
-            onClick={() => {
-              if (connect) {
-                setShowPopup(!showPopup);
-              } else {
-                setShow(true);
-              }
-            }}
+            onClick={
+              userAddress
+                ? disconnectWallet
+                : () => {
+                    if (connect) {
+                      setShowPopup(!showPopup);
+                    } else {
+                      setShow(true);
+                    }
+                  }
+            }
           >
-            {connect ? (
+            {userAddress ? (
               <div className={style.inner}>
                 <img src={user.userLogo} alt="" className={style.logo} />
-                <p>{user.value}</p>
+                <p>{userAddress}</p>
                 <img src={arrow_down} alt="" className={style.arrow} />
               </div>
             ) : (
@@ -133,6 +144,7 @@ export const SecondPage = ({
           {footerIndex === 0 && <ItemsBlock userInfo={userInfo} />}
           {footerIndex === 1 && (
             <SecondBlock
+              investExample={investExample}
               getInitialInfo={getInitialInfo}
               walletType={walletType}
               userInfo={userInfo}
@@ -147,11 +159,16 @@ export const SecondPage = ({
         <UserBlock className={style.userBlock} />
         <div className={style.doubleBlock}>
           <SecondBlock
+            investExample={investExample}
             getInitialInfo={getInitialInfo}
             walletType={walletType}
             userInfo={userInfo}
           />
-          <ClockBlock userInfo={userInfo} />
+          <ClockBlock
+            getInitialInfo={getInitialInfo}
+            walletType={walletType}
+            userInfo={userInfo}
+          />
         </div>
       </div>
 

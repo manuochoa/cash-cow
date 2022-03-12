@@ -5,7 +5,12 @@ import enlarge from "../../../assets/png/enlarge.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 import { buyEggs, approveToken } from "../../../blockchain/functions";
 
-export const SecondBlock = ({ getInitialInfo, userInfo, walletType }) => {
+export const SecondBlock = ({
+  getInitialInfo,
+  userInfo,
+  walletType,
+  investExample,
+}) => {
   const [busdBalance, setBusdBalance] = useState("");
   const [busdApproved, setBusdApproved] = useState("");
   const [number1, setNumber1] = useState(10);
@@ -60,7 +65,7 @@ export const SecondBlock = ({ getInitialInfo, userInfo, walletType }) => {
         <div className={clsx(style.row, style.topRow)}>
           <p className={style.left}>Investment Example:</p>
           <p className={style.right}>
-            <span className={style.green}>0</span>
+            <span className={style.green}>500</span>
             <span> $CASH</span>
           </p>
         </div>
@@ -68,9 +73,14 @@ export const SecondBlock = ({ getInitialInfo, userInfo, walletType }) => {
         <div className={style.row}>
           <p className={style.left}>Daily Yield:</p>
           <p className={style.right}>
-            <span className={style.green}>500</span>
+            <span className={style.green}>
+              {investExample[1] &&
+                Number(investExample[1] / 10 ** 18).toFixed(2)}
+            </span>
             <span> $CASH = </span>
-            <span className={style.green}>0</span>
+            <span className={style.green}>
+              {investExample[0] && Number(investExample[0])}
+            </span>
             <span> Miners</span>
           </p>
         </div>

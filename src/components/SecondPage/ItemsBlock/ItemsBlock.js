@@ -76,7 +76,7 @@ export const ItemsBlock = ({ userInfo }) => {
           </div>
           <div className={style.bottom}>
             <p>{value}</p>
-            <p>BUSD</p>
+            <p>$CASH</p>
           </div>
         </div>
       ))}

@@ -6,7 +6,12 @@ import btnSrc1 from "../../../assets/png/metamask.png";
 import btnSrc2 from "../../../assets/png/wallet.png";
 import clsx from "clsx";
 
-export const Modal = ({ onClose, onConnect }) => {
+export const Modal = ({
+  connectMetamask,
+  connectWalletConnect,
+  onClose,
+  onConnect,
+}) => {
   const [wallet, setWallet] = useState("Metamask");
 
   return (
@@ -25,7 +30,10 @@ export const Modal = ({ onClose, onConnect }) => {
               [style.btn]: true,
               [style.btn_selected]: wallet === "Metamask",
             })}
-            onClick={() => setWallet("Metamask")}
+            onClick={() => {
+              connectMetamask();
+              onClose();
+            }}
           >
             <img src={btnSrc1} alt="" />
             <p>Metamask</p>
@@ -36,7 +44,10 @@ export const Modal = ({ onClose, onConnect }) => {
               [style.btn]: true,
               [style.btn_selected]: wallet === "WalletConnect",
             })}
-            onClick={() => setWallet("WalletConnect")}
+            onClick={() => {
+              connectWalletConnect();
+              onClose();
+            }}
           >
             <img src={btnSrc2} alt="" />
             <p>WalletConnect</p>
@@ -47,7 +58,6 @@ export const Modal = ({ onClose, onConnect }) => {
           className={style.closeBtn}
           onClick={() => {
             onConnect(wallet);
-            onClose();
           }}
         >
           Connect

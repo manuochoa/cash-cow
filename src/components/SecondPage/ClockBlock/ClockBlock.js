@@ -3,7 +3,7 @@ import style from "./ClockBlock.module.scss";
 import clock from "../../../assets/png/clock.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 import clsx from "clsx";
-import { hatchEggs } from "../../../blockchain/functions";
+import { hatchEggs, sellEggs } from "../../../blockchain/functions";
 
 export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
   const [miners, setMiners] = useState("");
@@ -13,6 +13,14 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
 
   const handleCompound = async () => {
     let receipt = await hatchEggs(walletType);
+    if (receipt) {
+      console.log(receipt);
+      getInitialInfo();
+    }
+  };
+
+  const handleClaim = async () => {
+    let receipt = await sellEggs(walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
@@ -66,10 +74,10 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
       </div>
 
       <div className={style.buttons}>
-        <button className={style.firstBtn}>
+        <button onClick={handleClaim} className={style.firstBtn}>
           <p>
-            <span>Withdraw in 00:00:00:00 </span>
-            <span>(-40% Tax)</span>
+            <span>Claim Rewards</span>
+            {/* <span>(-40% Tax)</span> */}
           </p>
         </button>
         <button onClick={handleCompound} className={style.secondBtn}>

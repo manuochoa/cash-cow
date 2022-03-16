@@ -3,7 +3,7 @@ import style from "./ClockBlock.module.scss";
 import clock from "../../../assets/png/clock.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 import clsx from "clsx";
-import { hatchEggs, sellEggs } from "../../../blockchain/functions";
+import { claim, roll } from "../../../blockchain/functions";
 
 export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
   const [miners, setMiners] = useState("");
@@ -12,7 +12,7 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
   const [availableEarnings, setAvailbleEarnings] = useState("");
 
   const handleCompound = async () => {
-    let receipt = await hatchEggs(walletType);
+    let receipt = await roll(walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
@@ -20,28 +20,18 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
   };
 
   const handleClaim = async () => {
-    let receipt = await sellEggs(walletType);
+    let receipt = await claim(walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
     }
   };
 
-  useEffect(() => {
-    console.log("inside clock block", {
-      userInfo,
-    });
-    if (userInfo?.dailyYield) {
-      setEggYield(Number(userInfo.dailyYield / 10 ** 18).toFixed(2));
-      setAvailbleEarnings(
-        Number(userInfo.availableEarnings / 10 ** 18).toFixed(2)
-      );
-    }
-  }, [userInfo]);
+  useEffect(() => {}, [userInfo]);
 
   return (
     <div className={style.clockBlock}>
-      <img src={clock} alt="" className={style.clock} />
+      {/* <img src={clock} alt="" className={style.clock} />
 
       <div className={style.top}>
         <p className={style.text}>
@@ -55,10 +45,10 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
           <span className={style.green}>{busdBalance}</span>
           <span>$CASH</span>
         </p>
-      </div>
+      </div> */}
 
       <div className={clsx(style.field, style.field_first)}>
-        <p className={style.left}>Est. Daily Yield:</p>
+        <p className={style.left}>Available:</p>
         <p className={style.right}>
           <span className={style.green}>{eggYield}</span>
           <span> $CASH</span>
@@ -66,7 +56,42 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
       </div>
 
       <div className={clsx(style.field, style.field_second)}>
-        <p className={style.left}>Available Earnings</p>
+        <p className={style.left}>Deposits</p>
+        <p className={style.right}>
+          <span className={style.green}>{availableEarnings}</span>
+          <span> $CASH</span>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Claimed</p>
+        <p className={style.right}>
+          <span className={style.green}>{availableEarnings}</span>
+          <span> $CASH</span>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Referral Rewards</p>
+        <p className={style.right}>
+          <span className={style.green}>{availableEarnings}</span>
+          <span> $CASH</span>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Max Payout</p>
+        <p className={style.right}>
+          <span className={style.green}>{availableEarnings}</span>
+          <span> $CASH</span>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Team</p>
+        <p className={style.right}>
+          <span className={style.green}>{availableEarnings}</span>
+          <span> $CASH</span>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>My Referral</p>
         <p className={style.right}>
           <span className={style.green}>{availableEarnings}</span>
           <span> $CASH</span>
@@ -74,15 +99,14 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
       </div>
 
       <div className={style.buttons}>
-        <button onClick={handleClaim} className={style.firstBtn}>
+        {/* <button onClick={handleClaim} className={style.firstBtn}>
           <p>
             <span>Claim Rewards</span>
-            {/* <span>(-40% Tax)</span> */}
           </p>
         </button>
         <button onClick={handleCompound} className={style.secondBtn}>
           Compound (+12% Bonus)
-        </button>
+        </button> */}
       </div>
     </div>
   );

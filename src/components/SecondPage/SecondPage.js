@@ -36,6 +36,8 @@ const userMock = {
 };
 
 export const SecondPage = ({
+  isAllowed,
+  userBalance,
   userInfo,
   siteInfo,
   walletType,
@@ -139,11 +141,14 @@ export const SecondPage = ({
       </header>
 
       <div className={style.mobile}>
-        <UserBlock />
+        {/* <UserBlock /> */}
         <div className={style.content}>
-          {footerIndex === 0 && <ItemsBlock userInfo={userInfo} />}
+          {footerIndex === 0 && (
+            <ItemsBlock userBalance={userBalance} userInfo={userInfo} />
+          )}
           {footerIndex === 1 && (
             <SecondBlock
+              isAllowed={isAllowed}
               investExample={investExample}
               getInitialInfo={getInitialInfo}
               walletType={walletType}
@@ -155,10 +160,11 @@ export const SecondPage = ({
       </div>
 
       <div className={style.desktop}>
-        <ItemsBlock userInfo={userInfo} />
-        <UserBlock className={style.userBlock} />
+        <ItemsBlock userBalance={userBalance} userInfo={userInfo} />
+        {/* <UserBlock className={style.userBlock} /> */}
         <div className={style.doubleBlock}>
           <SecondBlock
+            isAllowed={isAllowed}
             investExample={investExample}
             getInitialInfo={getInitialInfo}
             walletType={walletType}

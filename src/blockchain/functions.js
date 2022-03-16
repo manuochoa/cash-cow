@@ -3,8 +3,9 @@ import { ethers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 
-let minerAddress = "0x4bbfF816B143e4ae18118cBECBf05Ce276EEfaB7";
-let tokenAddress = "0x26D09B98f9c07B73Fa851d4E312d89Ef8B7a6D0b";
+let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
+let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
+let faucetAddress = "0x7155EFd9F66ED154e936017A5358F4a05d98D3d2";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -16,155 +17,86 @@ let provider = new ethers.providers.JsonRpcProvider(
   "https://data-seed-prebsc-1-s1.binance.org:8545/"
 );
 
-let contractInstance = new ethers.Contract(minerAddress, abi, provider);
+let contractInstance = new ethers.Contract(faucetAddress, abi, provider);
 let tokenInstance = new ethers.Contract(tokenAddress, tokenAbi, provider);
 
-// function buyEggs(address ref, uint256 amount) public payable
-// function hatchEggs(bool isCompound) public
-// function sellEggs() public {
-// function calculateEggBuySimple(uint256 eth) public view returns (uint256)
-// function calculateEggSell(uint256 eggs) public view returns (uint256) {
-// function getAvailableEarnings(address _adr) public view returns (uint256)
-// function getEggsYield(uint256 amount) public view returns (uint256, uint256)
-// function getSiteInfo()
-// function getUserInfo(address _adr)
+// function deposit(address _upline, uint256 _amount) external {
+// function claim() external {
+// function roll() public {
 
-export const calculateEggBuySimple = async (_amount) => {
+export const getUserInfo = async (userAddress) => {
   try {
-    let amount = ethers.utils.parseUnits(_amount.toString(), "ether");
-    let receipt = await contractInstance.calculateEggBuySimple(amount);
+    let receipt = await contractInstance.users(userAddress);
+    let balance = await tokenInstance.balanceOf(userAddress);
+    let allowance = await tokenInstance.allowance(userAddress, faucetAddress);
 
-    return receipt;
-  } catch (error) {
-    console.log(error, "calculateEggBuySimple");
-  }
-};
-
-export const calculateEggSell = async (eggs) => {
-  try {
-    let receipt = await contractInstance.calculateEggSell(eggs);
-
-    return receipt;
-  } catch (error) {
-    console.log(error, "calculateEggSell");
-  }
-};
-
-export const getAvailableEarnings = async (address) => {
-  try {
-    let receipt = await contractInstance.getAvailableEarnings(address);
-
-    return receipt;
-  } catch (error) {
-    console.log(error, "getAvailableEarnings");
-  }
-};
-
-export const getUserInfo = async (address) => {
-  try {
-    let contractInfo = await contractInstance.getUserInfo(address);
-    let allowance = await tokenInstance.allowance(address, minerAddress);
-    let balance = await tokenInstance.balanceOf(address);
-    let dailyYield = await contractInstance.getEggsYield(
-      contractInfo._userDeposit
-    );
-    let availableEarnings = await contractInstance.getAvailableEarnings(
-      address
-    );
-
-    console.log(dailyYield[1] / 10 ** 18, "balance");
-    return {
-      contractInfo,
-      allowance,
-      balance,
-      dailyYield: dailyYield[1],
-      availableEarnings,
-    };
+    return { receipt, balance, allowance: Number(allowance) > 0 };
   } catch (error) {
     console.log(error, "getUserInfo");
   }
 };
 
-export const getEggsYield = async (amount) => {
-  try {
-    let receipt = await contractInstance.getEggsYield(amount);
-
-    return receipt;
-  } catch (error) {
-    console.log(error, "getEggsYield");
-  }
-};
-
-export const getSiteInfo = async () => {
-  try {
-    let receipt = await contractInstance.getSiteInfo();
-
-    return receipt;
-  } catch (error) {
-    console.log(error, "getSiteInfo");
-  }
-};
-
-export const buyEggs = async (ref, _amount, walletType) => {
+export const deposit = async (ref, _amount, walletType) => {
   try {
     let amount = ethers.utils.parseUnits(_amount.toString(), "ether");
 
-    let newInstance = await minerContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.buyEggs(ref, amount);
+    let tx = await newInstance.deposit(ref, amount);
 
     let receipt = await tx.wait();
 
     return receipt;
   } catch (error) {
-    console.log(error, "buyEggs");
+    console.log(error, "deposit");
     if (error.data) {
       window.alert(error.data.message);
     }
   }
 };
 
-export const hatchEggs = async (walletType) => {
+export const claim = async (walletType) => {
   try {
-    let newInstance = await minerContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.hatchEggs("true");
+    let tx = await newInstance.claim();
 
     let receipt = await tx.wait();
 
     return receipt;
   } catch (error) {
-    console.log(error, "hatchEggs");
+    console.log(error, "claim");
     if (error.data) {
       window.alert(error.data.message);
     }
   }
 };
 
-export const sellEggs = async (walletType) => {
+export const roll = async (walletType) => {
   try {
-    let newInstance = await minerContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.sellEggs();
+    let tx = await newInstance.roll();
 
     let receipt = await tx.wait();
 
     return receipt;
   } catch (error) {
-    console.log(error, "sellEggs");
+    console.log(error, "roll");
     if (error.data) {
       window.alert(error.data.message);
     }
   }
 };
 
-export const approveToken = async (_amount, walletType) => {
+export const approveToken = async (walletType) => {
   try {
-    let amount = ethers.utils.parseUnits(_amount.toString(), "ether");
+    const maxInt =
+      "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
     let newInstance = await tokenContractInstance(walletType);
 
-    let tx = await newInstance.approve(minerAddress, amount);
+    let tx = await newInstance.approve(faucetAddress, maxInt);
     let receipt = await tx.wait();
 
     return receipt;
@@ -176,7 +108,7 @@ export const approveToken = async (_amount, walletType) => {
   }
 };
 
-const minerContractInstance = async (walletType) => {
+const faucetContractInstance = async (walletType) => {
   if (walletType === "WALLET_CONNECT") {
     let newProvider = new WalletConnectProvider({
       rpc: {
@@ -187,12 +119,12 @@ const minerContractInstance = async (walletType) => {
     await newProvider.enable();
     let signer = newProvider.getSigner(0);
 
-    return new ethers.Contract(minerAddress, abi, signer);
+    return new ethers.Contract(faucetAddress, abi, signer);
   } else {
     let newProvider = new ethers.providers.Web3Provider(window.ethereum);
     let signer = newProvider.getSigner(0);
 
-    return new ethers.Contract(minerAddress, abi, signer);
+    return new ethers.Contract(faucetAddress, abi, signer);
   }
 };
 

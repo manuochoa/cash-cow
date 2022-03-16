@@ -3,9 +3,15 @@ import style from "./SecondBlock.module.scss";
 import clsx from "clsx";
 import enlarge from "../../../assets/png/enlarge.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
-import { buyEggs, approveToken } from "../../../blockchain/functions";
+import {
+  deposit,
+  claim,
+  roll,
+  approveToken,
+} from "../../../blockchain/functions";
 
 export const SecondBlock = ({
+  isAllowed,
   getInitialInfo,
   userInfo,
   walletType,
@@ -15,9 +21,10 @@ export const SecondBlock = ({
   const [busdApproved, setBusdApproved] = useState("");
   const [number1, setNumber1] = useState(10);
   const [number2, setNumber2] = useState(10);
+  const [refAddress, setRefAddress] = useState("");
 
   const handleBuy = async () => {
-    let receipt = await buyEggs(
+    let receipt = await deposit(
       "0x0000000000000000000000000000000000000000",
       number2,
       walletType
@@ -30,7 +37,7 @@ export const SecondBlock = ({
 
   const handleApprove = async () => {
     console.log("approve");
-    let receipt = await approveToken(number1, walletType);
+    let receipt = await approveToken(walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
@@ -52,16 +59,16 @@ export const SecondBlock = ({
 
   return (
     <div className={style.secondBlock}>
-      <div className={clsx(style.field, style.row)}>
+      {/* <div className={clsx(style.field, style.row)}>
         <input type="text" placeholder="Your Wallet:" className={style.left} />
 
         <p className={style.right}>
           <span className={style.green}>{busdBalance}</span>
           <span> $CASH</span>
         </p>
-      </div>
+      </div> */}
 
-      <div className={clsx(style.field, style.secondField)}>
+      {/* <div className={clsx(style.field, style.secondField)}>
         <div className={clsx(style.row, style.topRow)}>
           <p className={style.left}>Investment Example:</p>
           <p className={style.right}>
@@ -84,16 +91,15 @@ export const SecondBlock = ({
             <span> Miners</span>
           </p>
         </div>
-      </div>
+      </div> */}
 
-      <div className={style.titleField}>
+      {/* <div className={style.titleField}>
         <p>Approve $CASH</p>
         <p>({busdApproved} $CASH approved)</p>
-      </div>
-
+      </div> */}
+      {/* 
       <div className={style.numberField}>
         <div className={style.top}>
-          {/*<p className={style.number}>10</p>*/}
           <input
             type="number"
             className={style.number}
@@ -125,16 +131,30 @@ export const SecondBlock = ({
         <div onClick={handleApprove} className={style.bottom}>
           Approve
         </div>
-      </div>
+      </div> */}
 
       <div className={style.titleField}>
         <p>Deposit $CASH</p>
-        <p>(30.000 max)</p>
+        {/* <p>(30.000 max)</p> */}
       </div>
 
       <div className={style.numberField}>
         <div className={style.top}>
           {/*<p className={style.number}>10</p>*/}
+
+          <input
+            type="text"
+            className={style.number}
+            value={refAddress}
+            placeholder="Referral Address"
+            onChange={(e) => {
+              setRefAddress(e.target.value);
+            }}
+          />
+        </div>
+        <div className={style.top}>
+          {/*<p className={style.number}>10</p>*/}
+
           <input
             type="number"
             className={style.number}
@@ -145,7 +165,7 @@ export const SecondBlock = ({
           />
 
           <div className={style.right}>
-            <p>MAX</p>
+            {/* <p>MAX</p> */}
             <div className={style.arrow_buttons}>
               <button
                 className={style.btn}
@@ -163,8 +183,26 @@ export const SecondBlock = ({
           </div>
         </div>
 
+        <div
+          onClick={isAllowed ? handleBuy : handleApprove}
+          className={style.bottom}
+        >
+          {isAllowed ? "Deposit" : "Approve"}
+        </div>
+      </div>
+      <div className={style.titleField}>
+        <p>Options</p>
+        {/* <p>(30.000 max)</p> */}
+      </div>
+
+      <div className={style.numberField}>
         <div onClick={handleBuy} className={style.bottom}>
-          Hire 0 Miners
+          Compound
+        </div>
+      </div>
+      <div className={style.numberField}>
+        <div onClick={handleBuy} className={style.bottom}>
+          Claim
         </div>
       </div>
     </div>

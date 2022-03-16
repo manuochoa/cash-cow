@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import style from "./ItemsBlock.module.scss";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 
-export const ItemsBlock = ({ userInfo }) => {
+export const ItemsBlock = ({ userInfo, userBalance }) => {
   const [items, setItems] = useState([
     {
       svg: svgIcons.credit_card_plus,
-      text: "Initial Deposit",
+      text: "Balance",
       value: 0,
     },
     {
@@ -27,25 +27,17 @@ export const ItemsBlock = ({ userInfo }) => {
   ]);
 
   useEffect(() => {
-    if (userInfo && userInfo.contractInfo) {
-      let initialDeposit = Number(
-        userInfo.contractInfo._initialDeposit / 10 ** 18
-      ).toFixed(2);
-      let totalDeposit = Number(
-        userInfo.contractInfo._userDeposit / 10 ** 18
-      ).toFixed(2);
-      let withdrawn = Number(
-        userInfo.contractInfo._totalWithdrawn / 10 ** 18
-      ).toFixed(2);
-      let refRewards = Number(
-        userInfo.contractInfo._referrals / 10 ** 18
-      ).toFixed(2);
+    if (userInfo) {
+      let balance = Number(userBalance / 10 ** 18).toFixed(2);
+      let totalDeposit = Number(userInfo.deposits / 10 ** 18).toFixed(2);
+      let withdrawn = Number(userInfo.payouts / 10 ** 18).toFixed(2);
+      let refRewards = Number(userInfo.match_bonus / 10 ** 18).toFixed(2);
 
       setItems([
         {
           svg: svgIcons.credit_card_plus,
-          text: "Initial Deposit",
-          value: initialDeposit,
+          text: "Balance",
+          value: balance,
         },
         {
           svg: svgIcons.cash,

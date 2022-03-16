@@ -54,14 +54,14 @@ export const Modal = ({
           </div>
         </div>
 
-        <button
+        {/* <button
           className={style.closeBtn}
           onClick={() => {
             onConnect(wallet);
           }}
         >
           Connect
-        </button>
+        </button> */}
       </div>
     </div>
   );

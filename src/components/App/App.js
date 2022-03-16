@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./App.module.scss";
 import { SecondPage } from "../SecondPage/SecondPage";
-import {
-  getUserInfo,
-  getSiteInfo,
-  getEggsYield,
-} from "../../blockchain/functions";
+import { getUserInfo } from "../../blockchain/functions";
 import { ethers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
@@ -14,18 +10,18 @@ export const App = () => {
   const [userAddress, setUserAddress] = useState("");
   const [walletType, setWalletType] = useState("");
   const [userInfo, setUserInfo] = useState();
+  const [userBalance, setUserBalance] = useState("");
   const [siteInfo, setSiteInfo] = useState([]);
   const [investExample, setInvestExample] = useState([]);
+  const [isAllowed, setIsAllowed] = useState(false);
 
   const getInitialInfo = async () => {
-    let contractDetails = await getSiteInfo();
-    let example = await getEggsYield("500000000000000000000");
-    setSiteInfo(contractDetails);
-    setInvestExample(example);
-    console.log(example, "example");
     if (userAddress) {
       let userDetails = await getUserInfo(userAddress);
-      setUserInfo(userDetails);
+      console.log(userDetails);
+      setUserInfo(userDetails.receipt);
+      setUserBalance(userDetails.balance);
+      setIsAllowed(userDetails.allowance);
     }
   };
 
@@ -116,6 +112,8 @@ export const App = () => {
   return (
     <div className={style.app}>
       <SecondPage
+        isAllowed={isAllowed}
+        userBalance={userBalance}
         investExample={investExample}
         userAddress={userAddress}
         disconnectWallet={disconnectWallet}

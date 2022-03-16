@@ -24,7 +24,26 @@ export const SecondBlock = ({
   const [refAddress, setRefAddress] = useState("");
 
   const handleBuy = async () => {
+    if (refAddress === "") {
+      return window.alert("Please use a valid Referral Address");
+    }
     let receipt = await deposit(refAddress, number2, walletType);
+    if (receipt) {
+      console.log(receipt);
+      getInitialInfo();
+    }
+  };
+
+  const handleClaim = async () => {
+    let receipt = await claim(walletType);
+    if (receipt) {
+      console.log(receipt);
+      getInitialInfo();
+    }
+  };
+
+  const handleRoll = async () => {
+    let receipt = await roll(walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
@@ -195,12 +214,12 @@ export const SecondBlock = ({
       </div>
 
       <div className={style.numberField}>
-        <div onClick={handleBuy} className={style.bottom}>
+        <div onClick={handleRoll} className={style.bottom}>
           Compound
         </div>
       </div>
       <div className={style.numberField}>
-        <div onClick={handleBuy} className={style.bottom}>
+        <div onClick={handleClaim} className={style.bottom}>
           Claim
         </div>
       </div>

@@ -27,10 +27,11 @@ let tokenInstance = new ethers.Contract(tokenAddress, tokenAbi, provider);
 export const getUserInfo = async (userAddress) => {
   try {
     let receipt = await contractInstance.users(userAddress);
+    let available = await contractInstance.claimsAvailable(userAddress);
     let balance = await tokenInstance.balanceOf(userAddress);
     let allowance = await tokenInstance.allowance(userAddress, faucetAddress);
 
-    return { receipt, balance, allowance: Number(allowance) > 0 };
+    return { receipt, available, balance, allowance: Number(allowance) > 0 };
   } catch (error) {
     console.log(error, "getUserInfo");
   }
@@ -49,6 +50,7 @@ export const deposit = async (ref, _amount, walletType) => {
     return receipt;
   } catch (error) {
     console.log(error, "deposit");
+
     if (error.data) {
       window.alert(error.data.message);
     }

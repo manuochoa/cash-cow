@@ -5,7 +5,12 @@ import { svgIcons } from "../../../assets/svg/svgIcons";
 import clsx from "clsx";
 import { claim, roll } from "../../../blockchain/functions";
 
-export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
+export const ClockBlock = ({
+  claimable,
+  userInfo,
+  getInitialInfo,
+  walletType,
+}) => {
   const [miners, setMiners] = useState("");
   const [busdBalance, setBusdBalance] = useState("");
   const [eggYield, setEggYield] = useState("");
@@ -50,7 +55,9 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
       <div className={clsx(style.field, style.field_first)}>
         <p className={style.left}>Available:</p>
         <p className={style.right}>
-          <span className={style.green}>{eggYield}</span>
+          <span className={style.green}>
+            {Number(claimable / 10 ** 18).toFixed(2)}
+          </span>
           <span> $CASH</span>
         </p>
       </div>
@@ -58,43 +65,52 @@ export const ClockBlock = ({ userInfo, getInitialInfo, walletType }) => {
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Deposits</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
+          <span className={style.green}>
+            {" "}
+            {Number(userInfo?.deposits / 10 ** 18).toFixed(2)}
+          </span>
           <span> $CASH</span>
         </p>
       </div>
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Claimed</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
+          <span className={style.green}>
+            {" "}
+            {Number(userInfo?.payouts / 10 ** 18).toFixed(2)}
+          </span>
           <span> $CASH</span>
         </p>
       </div>
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Referral Rewards</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
+          <span className={style.green}>
+            {" "}
+            {Number(userInfo?.match_bonus / 10 ** 18).toFixed(2)}
+          </span>
           <span> $CASH</span>
         </p>
       </div>
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Max Payout</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
+          <span className={style.green}> 100.000</span>
           <span> $CASH</span>
         </p>
       </div>
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Team</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
-          <span> $CASH</span>
+          <span className={style.green}> {Number(userInfo?.referrals)}/15</span>
+          {/* <span> $</span> */}
         </p>
       </div>
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>My Referral</p>
         <p className={style.right}>
-          <span className={style.green}>{availableEarnings}</span>
-          <span> $CASH</span>
+          <span className={style.green}> {userInfo?.upline?.toString()}</span>
+          {/* <span> $CASH</span> */}
         </p>
       </div>
 

@@ -36,6 +36,7 @@ const userMock = {
 };
 
 export const SecondPage = ({
+  claimable,
   isAllowed,
   userBalance,
   userInfo,
@@ -155,7 +156,14 @@ export const SecondPage = ({
               userInfo={userInfo}
             />
           )}
-          {footerIndex === 2 && <ClockBlock userInfo={userInfo} />}
+          {footerIndex === 2 && (
+            <ClockBlock
+              claimable={claimable}
+              getInitialInfo={getInitialInfo}
+              walletType={walletType}
+              userInfo={userInfo}
+            />
+          )}
         </div>
       </div>
 
@@ -171,6 +179,7 @@ export const SecondPage = ({
             userInfo={userInfo}
           />
           <ClockBlock
+            claimable={claimable}
             getInitialInfo={getInitialInfo}
             walletType={walletType}
             userInfo={userInfo}

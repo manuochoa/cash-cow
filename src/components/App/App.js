@@ -10,6 +10,7 @@ export const App = () => {
   const [userAddress, setUserAddress] = useState("");
   const [walletType, setWalletType] = useState("");
   const [userInfo, setUserInfo] = useState();
+  const [claimable, setClaimable] = useState("");
   const [userBalance, setUserBalance] = useState("");
   const [siteInfo, setSiteInfo] = useState([]);
   const [investExample, setInvestExample] = useState([]);
@@ -22,6 +23,7 @@ export const App = () => {
       setUserInfo(userDetails.receipt);
       setUserBalance(userDetails.balance);
       setIsAllowed(userDetails.allowance);
+      setClaimable(userDetails.available);
     }
   };
 
@@ -112,6 +114,7 @@ export const App = () => {
   return (
     <div className={style.app}>
       <SecondPage
+        claimable={claimable}
         isAllowed={isAllowed}
         userBalance={userBalance}
         investExample={investExample}

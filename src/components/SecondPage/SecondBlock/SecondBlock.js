@@ -24,11 +24,7 @@ export const SecondBlock = ({
   const [refAddress, setRefAddress] = useState("");
 
   const handleBuy = async () => {
-    let receipt = await deposit(
-      "0x0000000000000000000000000000000000000000",
-      number2,
-      walletType
-    );
+    let receipt = await deposit(refAddress, number2, walletType);
     if (receipt) {
       console.log(receipt);
       getInitialInfo();
@@ -148,6 +144,9 @@ export const SecondBlock = ({
             value={refAddress}
             placeholder="Referral Address"
             onChange={(e) => {
+              setRefAddress(e.target.value);
+            }}
+            onPaste={(e) => {
               setRefAddress(e.target.value);
             }}
           />

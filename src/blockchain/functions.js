@@ -44,7 +44,7 @@ export const deposit = async (ref, _amount, walletType) => {
 
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.deposit(ref, amount);
+    let tx = await newInstance.deposit(ref, amount, { gasLimit: 500000 });
 
     let receipt = await tx.wait();
 
@@ -63,7 +63,7 @@ export const claim = async (walletType) => {
   try {
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.claim();
+    let tx = await newInstance.claim({ gasLimit: 500000 });
 
     let receipt = await tx.wait();
 
@@ -81,7 +81,7 @@ export const roll = async (walletType) => {
   try {
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.roll();
+    let tx = await newInstance.roll({ gasLimit: 500000 });
 
     let receipt = await tx.wait();
 
@@ -102,7 +102,9 @@ export const approveToken = async (walletType) => {
 
     let newInstance = await tokenContractInstance(walletType);
 
-    let tx = await newInstance.approve(faucetAddress, maxInt);
+    let tx = await newInstance.approve(faucetAddress, maxInt, {
+      gasLimit: 50000,
+    });
     let receipt = await tx.wait();
 
     return receipt;

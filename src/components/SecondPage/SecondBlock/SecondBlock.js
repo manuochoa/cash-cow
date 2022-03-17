@@ -19,6 +19,7 @@ export const SecondBlock = ({
   userInfo,
   walletType,
   investExample,
+  userBalance,
 }) => {
   const [busdBalance, setBusdBalance] = useState("");
   const [busdApproved, setBusdApproved] = useState("");
@@ -157,7 +158,10 @@ export const SecondBlock = ({
 
       <div className={style.titleField}>
         <p>Deposit $CASH</p>
-        {/* <p>(30.000 max)</p> */}
+        <p>
+          Balance:{" "}
+          {userBalance ? Number(userBalance / 10 ** 18).toFixed(2) : "0"}{" "}
+        </p>
       </div>
 
       <div className={style.numberField}>

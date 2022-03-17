@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
 let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
-let faucetAddress = "0x7155EFd9F66ED154e936017A5358F4a05d98D3d2";
+let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -44,7 +44,7 @@ export const deposit = async (ref, _amount, walletType) => {
 
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.deposit(ref, amount, { gasLimit: 500000 });
+    let tx = await newInstance.deposit(ref, amount, { gasLimit: 700000 });
 
     let receipt = await tx.wait();
 
@@ -63,7 +63,7 @@ export const claim = async (walletType) => {
   try {
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.claim({ gasLimit: 500000 });
+    let tx = await newInstance.claim({ gasLimit: 700000 });
 
     let receipt = await tx.wait();
 
@@ -81,7 +81,7 @@ export const roll = async (walletType) => {
   try {
     let newInstance = await faucetContractInstance(walletType);
 
-    let tx = await newInstance.roll({ gasLimit: 500000 });
+    let tx = await newInstance.roll({ gasLimit: 700000 });
 
     let receipt = await tx.wait();
 

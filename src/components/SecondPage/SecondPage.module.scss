@@ -118,6 +118,7 @@
         border-radius: 16px;
         padding: 12px 16px;
         width: 310px;
+        z-index: 2;
 
         @include desktop() {
           width: 330px;
@@ -176,7 +177,7 @@
               @include CenturyGothicRegular();
               font-size: 14px;
               line-height: 14px;
-              opacity: 0.5;
+              // opacity: 0.5;
             }
           }
 

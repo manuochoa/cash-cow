@@ -1,5 +1,5 @@
 import { abi } from "./abi";
-import { ethers } from "ethers";
+import { ethers, providers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 
@@ -116,10 +116,16 @@ const faucetContractInstance = async (walletType) => {
       rpc: {
         97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
       },
+      network: "binance testnet",
+      chainId: 97,
+      infuraId: null,
     });
 
     await newProvider.enable();
-    let signer = newProvider.getSigner(0);
+
+    const web3Provider = new providers.Web3Provider(newProvider);
+
+    let signer = web3Provider.getSigner(0);
 
     return new ethers.Contract(faucetAddress, abi, signer);
   } else {
@@ -136,10 +142,16 @@ const tokenContractInstance = async (walletType) => {
       rpc: {
         97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
       },
+      network: "binance testnet",
+      chainId: 97,
+      infuraId: null,
     });
 
     await newProvider.enable();
-    let signer = newProvider.getSigner(0);
+
+    const web3Provider = new providers.Web3Provider(newProvider);
+
+    let signer = web3Provider.getSigner(0);
 
     return new ethers.Contract(tokenAddress, tokenAbi, signer);
   } else {

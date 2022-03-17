@@ -11,6 +11,7 @@ import { ClockBlock } from "./ClockBlock/ClockBlock";
 import { Modal } from "./Modal/Modal";
 import userLogo from "../../assets/png/userLogo.png";
 import arrow_down from "../../assets/png/arrow_down.png";
+import { toast } from "react-toastify";
 
 const footerItems = [
   {
@@ -57,6 +58,11 @@ export const SecondPage = ({
 
   const user = userMock;
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(userAddress);
+    toast.success("Copied to clipboard");
+  };
+
   return (
     <section
       className={clsx({
@@ -89,15 +95,16 @@ export const SecondPage = ({
               [style.btn_connected]: connect,
             })}
             onClick={
-              userAddress
-                ? disconnectWallet
-                : () => {
-                    if (connect) {
-                      setShowPopup(!showPopup);
-                    } else {
-                      setShow(true);
-                    }
-                  }
+              //userAddress
+              //</div>  ? disconnectWallet
+              // :
+              () => {
+                if (userAddress) {
+                  setShowPopup(!showPopup);
+                } else {
+                  setShow(true);
+                }
+              }
             }
           >
             {userAddress ? (
@@ -118,7 +125,7 @@ export const SecondPage = ({
                 <button
                   onClick={() => {
                     setShowPopup(false);
-                    setConnect(false);
+                    disconnectWallet();
                   }}
                 >
                   Disconnect
@@ -128,12 +135,19 @@ export const SecondPage = ({
               <div className={style.bottom}>
                 <img src={user.userLogo} alt="" className={style.logo} />
                 <div className={style.texts}>
-                  <p>{user.value}</p>
+                  <p>{userAddress}</p>
                   <p>{wallet}</p>
                 </div>
                 <div className={style.icons}>
-                  <div>{svgIcons.union}</div>
-                  <div>{svgIcons.copy}</div>
+                  {/* <a>{svgIcons.union}</a> */}
+                  <button onClick={copyToClipboard}>{svgIcons.union}</button>
+                  <a
+                    href={`https://bscscan.com/address/${userAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {svgIcons.copy}
+                  </a>
                 </div>
               </div>
             </div>

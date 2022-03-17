@@ -5,6 +5,8 @@ import { getUserInfo } from "../../blockchain/functions";
 import { ethers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
   const [userAddress, setUserAddress] = useState("");
@@ -126,6 +128,18 @@ export const App = () => {
         siteInfo={siteInfo}
         connectMetamask={connectMetamask}
         connectWalletConnect={connectWalletConnect}
+      />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        // theme="dark"
       />
     </div>
   );

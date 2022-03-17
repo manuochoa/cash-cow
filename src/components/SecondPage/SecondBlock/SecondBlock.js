@@ -9,6 +9,7 @@ import {
   roll,
   approveToken,
 } from "../../../blockchain/functions";
+import { toast } from "react-toastify";
 
 export const SecondBlock = ({
   setShow,
@@ -32,6 +33,7 @@ export const SecondBlock = ({
     let receipt = await deposit(refAddress, number2, walletType);
     if (receipt) {
       console.log(receipt);
+      toast.success("Transaction Send Succesfully!");
       getInitialInfo();
     }
   };
@@ -40,6 +42,7 @@ export const SecondBlock = ({
     let receipt = await claim(walletType);
     if (receipt) {
       console.log(receipt);
+      toast.success("Transaction Send Succesfully!");
       getInitialInfo();
     }
   };
@@ -48,6 +51,7 @@ export const SecondBlock = ({
     let receipt = await roll(walletType);
     if (receipt) {
       console.log(receipt);
+      toast.success("Transaction Send Succesfully!");
       getInitialInfo();
     }
   };
@@ -57,6 +61,7 @@ export const SecondBlock = ({
     let receipt = await approveToken(walletType);
     if (receipt) {
       console.log(receipt);
+      toast.success("Transaction Send Succesfully!");
       getInitialInfo();
     }
   };

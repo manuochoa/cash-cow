@@ -2,6 +2,7 @@ import { abi } from "./abi";
 import { ethers, providers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
+import { toast } from "react-toastify";
 
 let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
 let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
@@ -50,6 +51,7 @@ export const deposit = async (ref, _amount, walletType) => {
     return receipt;
   } catch (error) {
     console.log(error, "deposit");
+    toast.error("Something Went Wrong");
 
     if (error.data) {
       window.alert(error.data.message);
@@ -68,6 +70,7 @@ export const claim = async (walletType) => {
     return receipt;
   } catch (error) {
     console.log(error, "claim");
+    toast.error("Something Went Wrong");
     if (error.data) {
       window.alert(error.data.message);
     }
@@ -85,6 +88,7 @@ export const roll = async (walletType) => {
     return receipt;
   } catch (error) {
     console.log(error, "roll");
+    toast.error("Something Went Wrong");
     if (error.data) {
       window.alert(error.data.message);
     }
@@ -104,6 +108,7 @@ export const approveToken = async (walletType) => {
     return receipt;
   } catch (error) {
     console.log(error, "approveBUSD");
+    toast.error("Something Went Wrong");
     if (error.data) {
       window.alert(error.data.message);
     }

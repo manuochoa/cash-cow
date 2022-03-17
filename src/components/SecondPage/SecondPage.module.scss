@@ -4,7 +4,7 @@
   padding: 18px 20px 78px;
   min-height: 100vh;
   box-sizing: border-box;
-  background: #B6FBFF;
+  background: #b6fbff;
   background-image: url(../../assets/png/second-back-mobile.png);
   background-repeat: no-repeat;
   background-position: bottom 110px left 50%;
@@ -13,7 +13,6 @@
     overflow: hidden;
     height: 100vh;
   }
-
 
   @include desktop() {
     padding: 16px 24px 24px;
@@ -45,7 +44,6 @@
           font-size: 26px;
           line-height: 28px;
         }
-
       }
     }
 
@@ -55,7 +53,7 @@
       .btn {
         cursor: pointer;
         border: none;
-        background: #FFF;
+        background: #fff;
         padding: 14px 28px;
         border-radius: 100px;
 
@@ -65,10 +63,9 @@
 
         &:hover {
           .textNotConnect {
-            color: #B6FBFF;
+            color: #b6fbff;
           }
         }
-
 
         @include CenturyGothicBold();
         font-size: 16px;
@@ -116,7 +113,7 @@
         right: 0;
         top: calc(100% + 8px);
         transform: translate(0, 0%);
-        background: #FFF;
+        background: #fff;
         box-shadow: 0 16px 26px rgba(30, 33, 85, 0.12);
         border-radius: 16px;
         padding: 12px 16px;
@@ -186,6 +183,15 @@
           .icons {
             display: flex;
 
+            button {
+              border: 0px;
+              margin-right: 3px;
+            }
+
+            button:hover {
+              cursor: pointer;
+            }
+
             div:first-child {
               margin-right: 6px;
             }
@@ -202,10 +208,8 @@
       .content {
         margin-top: 20px;
       }
-
     }
   }
-
 
   .desktop {
     @include onlyDesktop() {
@@ -237,7 +241,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #FFFFFF;
+      background: #ffffff;
       box-shadow: 0px -12px 26px rgba(30, 33, 85, 0.04);
 
       .item {
@@ -274,11 +278,7 @@
             opacity: 1;
           }
         }
-
       }
-
-
     }
   }
-
 }

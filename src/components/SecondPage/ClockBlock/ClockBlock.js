@@ -67,7 +67,7 @@ export const ClockBlock = ({
         <p className={style.right}>
           <span className={style.green}>
             {" "}
-            {Number(userInfo?.deposits / 10 ** 18).toFixed(2)}
+            {userInfo ? Number(userInfo?.deposits / 10 ** 18).toFixed(2) : "0"}
           </span>
           <span> $CASH</span>
         </p>
@@ -77,7 +77,7 @@ export const ClockBlock = ({
         <p className={style.right}>
           <span className={style.green}>
             {" "}
-            {Number(userInfo?.payouts / 10 ** 18).toFixed(2)}
+            {userInfo ? Number(userInfo?.payouts / 10 ** 18).toFixed(2) : "0"}
           </span>
           <span> $CASH</span>
         </p>
@@ -87,7 +87,9 @@ export const ClockBlock = ({
         <p className={style.right}>
           <span className={style.green}>
             {" "}
-            {Number(userInfo?.match_bonus / 10 ** 18).toFixed(2)}
+            {userInfo
+              ? Number(userInfo?.match_bonus / 10 ** 18).toFixed(2)
+              : "0"}
           </span>
           <span> $CASH</span>
         </p>
@@ -102,7 +104,10 @@ export const ClockBlock = ({
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Team</p>
         <p className={style.right}>
-          <span className={style.green}> {Number(userInfo?.referrals)}/15</span>
+          <span className={style.green}>
+            {" "}
+            {Number(userInfo?.referrals) || "0"}/15
+          </span>
           {/* <span> $</span> */}
         </p>
       </div>

@@ -38,6 +38,16 @@ export const getUserInfo = async (userAddress) => {
   }
 };
 
+export const checkDeposit = async (userAddress) => {
+  try {
+    let info = await contractInstance.userInfo(userAddress);
+
+    return info.deposits > 0;
+  } catch (error) {
+    console.log(error, "checkDeposit");
+  }
+};
+
 export const deposit = async (ref, _amount, walletType) => {
   try {
     let amount = ethers.utils.parseUnits(_amount.toString(), "ether");

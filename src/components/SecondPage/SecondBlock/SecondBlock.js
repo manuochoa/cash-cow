@@ -8,6 +8,7 @@ import {
   claim,
   roll,
   approveToken,
+  checkDeposit,
 } from "../../../blockchain/functions";
 import { toast } from "react-toastify";
 
@@ -30,7 +31,12 @@ export const SecondBlock = ({
 
   const handleBuy = async () => {
     if (refAddress === "") {
-      return window.alert("Please use a valid Referral Address");
+      return toast.error("Please use a valid Referral Address");
+    } else {
+      let hasDeposit = await checkDeposit(refAddress);
+      if (!hasDeposit) {
+        return toast.error("Ref should be an address with active deposits");
+      }
     }
     setIsLoading(true);
     let receipt = await deposit(refAddress, number2, walletType);
@@ -44,6 +50,11 @@ export const SecondBlock = ({
 
   const handleClaim = async () => {
     setIsLoading(true);
+    let hasDeposit = await checkDeposit(userAddress);
+    if (!hasDeposit) {
+      setIsLoading(false);
+      return toast.error("No deposits active");
+    }
     let receipt = await claim(walletType);
     if (receipt) {
       console.log(receipt);
@@ -55,6 +66,11 @@ export const SecondBlock = ({
 
   const handleRoll = async () => {
     setIsLoading(true);
+    let hasDeposit = await checkDeposit(userAddress);
+    if (!hasDeposit) {
+      setIsLoading(false);
+      return toast.error("No deposits active");
+    }
     let receipt = await roll(walletType);
     if (receipt) {
       console.log(receipt);

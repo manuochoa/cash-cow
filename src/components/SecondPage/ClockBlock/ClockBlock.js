@@ -4,6 +4,9 @@ import clock from "../../../assets/png/clock.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 import clsx from "clsx";
 import { claim, roll } from "../../../blockchain/functions";
+import { toast } from "react-toastify";
+
+let marketingWallet = "0x153B202F6C6e570f13C27371CdA6Ae2c8768Dca6";
 
 export const ClockBlock = ({
   claimable,
@@ -30,6 +33,11 @@ export const ClockBlock = ({
       console.log(receipt);
       getInitialInfo();
     }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard");
   };
 
   useEffect(() => {}, [userInfo]);
@@ -120,6 +128,20 @@ export const ClockBlock = ({
             {userInfo?.upline?.toString().slice(-10)}{" "}
           </span>
           {/* <span> $CASH</span> */}
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Marketing Wallet</p>
+        <p className={style.right}>
+          <span className={style.green}>
+            {marketingWallet.slice(0, 6)}...{marketingWallet.slice(-6)}
+          </span>
+          <button
+            style={{ border: "0px" }}
+            onClick={() => copyToClipboard(marketingWallet)}
+          >
+            {svgIcons.union}
+          </button>
         </p>
       </div>
 

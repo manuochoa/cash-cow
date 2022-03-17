@@ -26,38 +26,46 @@ export const SecondBlock = ({
   const [number1, setNumber1] = useState(10);
   const [number2, setNumber2] = useState(10);
   const [refAddress, setRefAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleBuy = async () => {
     if (refAddress === "") {
       return window.alert("Please use a valid Referral Address");
     }
+    setIsLoading(true);
     let receipt = await deposit(refAddress, number2, walletType);
     if (receipt) {
       console.log(receipt);
       toast.success("Transaction Sent Succesfully!");
       getInitialInfo();
     }
+    setIsLoading(false);
   };
 
   const handleClaim = async () => {
+    setIsLoading(true);
     let receipt = await claim(walletType);
     if (receipt) {
       console.log(receipt);
       toast.success("Transaction Sent Succesfully!");
       getInitialInfo();
     }
+    setIsLoading(false);
   };
 
   const handleRoll = async () => {
+    setIsLoading(true);
     let receipt = await roll(walletType);
     if (receipt) {
       console.log(receipt);
       toast.success("Transaction Sent Succesfully!");
       getInitialInfo();
     }
+    setIsLoading(false);
   };
 
   const handleApprove = async () => {
+    setIsLoading(true);
     console.log("approve");
     let receipt = await approveToken(walletType);
     if (receipt) {
@@ -65,6 +73,7 @@ export const SecondBlock = ({
       toast.success("Transaction Sent Succesfully!");
       getInitialInfo();
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -216,11 +225,13 @@ export const SecondBlock = ({
           onClick={
             !userAddress
               ? () => setShow(true)
-              : isAllowed
-              ? handleBuy
-              : handleApprove
+              : !isLoading
+              ? isAllowed
+                ? handleBuy
+                : handleApprove
+              : ""
           }
-          className={style.bottom}
+          className={isLoading ? style.bottomLoading : style.bottom}
         >
           {isAllowed ? "Deposit" : "Approve"}
         </div>
@@ -232,16 +243,20 @@ export const SecondBlock = ({
 
       <div className={style.numberField}>
         <div
-          onClick={!userAddress ? () => setShow(true) : handleRoll}
-          className={style.bottom}
+          onClick={
+            !userAddress ? () => setShow(true) : !isLoading && handleRoll
+          }
+          className={isLoading ? style.bottomLoading : style.bottom}
         >
           Compound
         </div>
       </div>
       <div className={style.numberField}>
         <div
-          onClick={!userAddress ? () => setShow(true) : handleClaim}
-          className={style.bottom}
+          onClick={
+            !userAddress ? () => setShow(true) : !isLoading && handleClaim
+          }
+          className={isLoading ? style.bottomLoading : style.bottom}
         >
           Claim
         </div>

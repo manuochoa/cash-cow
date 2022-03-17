@@ -166,7 +166,7 @@ export const SecondBlock = ({
 
           <input
             type="text"
-            className={style.number}
+            className={style.address}
             value={refAddress}
             placeholder="Referral Address"
             onChange={(e) => {

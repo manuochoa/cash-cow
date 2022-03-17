@@ -51,7 +51,7 @@ export const ClockBlock = ({
           <span>$CASH</span>
         </p>
       </div> */}
-
+      {/* 
       <div className={clsx(style.field, style.field_first)}>
         <p className={style.left}>Available:</p>
         <p className={style.right}>
@@ -81,7 +81,7 @@ export const ClockBlock = ({
           </span>
           <span> $CASH</span>
         </p>
-      </div>
+      </div> */}
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Referral Rewards</p>
         <p className={style.right}>
@@ -94,13 +94,13 @@ export const ClockBlock = ({
           <span> $CASH</span>
         </p>
       </div>
-      <div className={clsx(style.field, style.field_second)}>
+      {/* <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Max Payout</p>
         <p className={style.right}>
           <span className={style.green}> 100.000</span>
           <span> $CASH</span>
         </p>
-      </div>
+      </div> */}
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Team</p>
         <p className={style.right}>

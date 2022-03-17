@@ -28,7 +28,7 @@ let tokenInstance = new ethers.Contract(tokenAddress, tokenAbi, provider);
 export const getUserInfo = async (userAddress) => {
   try {
     let receipt = await contractInstance.users(userAddress);
-    let available = await contractInstance.claimsAvailable(userAddress);
+    let available = await contractInstance.payoutOf(userAddress);
     let balance = await tokenInstance.balanceOf(userAddress);
     let allowance = await tokenInstance.allowance(userAddress, faucetAddress);
 

@@ -1,58 +1,63 @@
 import React, { useState, useEffect } from "react";
 import style from "./ItemsBlock.module.scss";
 import { svgIcons } from "../../../assets/svg/svgIcons";
+import availableIcon from "../../../assets/png/Available.png";
+import claimedIcon from "../../../assets/png/Claimed.png";
+import depositsIcon from "../../../assets/png/Deposits.png";
+import maxIcon from "../../../assets/png/MaxPayout.png";
 
-export const ItemsBlock = ({ userInfo, userBalance }) => {
+export const ItemsBlock = ({ userInfo, userBalance, claimable }) => {
   const [items, setItems] = useState([
     {
-      svg: svgIcons.credit_card_plus,
-      text: "Balance",
+      svg: availableIcon,
+      text: "Available",
       value: 0,
     },
     {
-      svg: svgIcons.cash,
-      text: "Total Deposit",
+      svg: depositsIcon,
+      text: "Deposits",
       value: 0,
     },
     {
-      svg: svgIcons.credit_card_plus,
-      text: "Withdrawn",
+      svg: claimedIcon,
+      text: "Claimed",
       value: 0,
     },
     {
-      svg: svgIcons.trophy,
-      text: "Refferal Rewards",
+      svg: maxIcon,
+      text: "Max Payout",
       value: 0,
     },
   ]);
 
   useEffect(() => {
     if (userInfo) {
-      let balance = Number(userBalance / 10 ** 18).toFixed(2);
+      console.log(userInfo);
+      let balance = Number(claimable.net_payout / 10 ** 18).toFixed(2);
       let totalDeposit = Number(userInfo.deposits / 10 ** 18).toFixed(2);
       let withdrawn = Number(userInfo.payouts / 10 ** 18).toFixed(2);
-      let refRewards = Number(userInfo.match_bonus / 10 ** 18).toFixed(2);
+      let maxPayout = Number(claimable.max_payout / 10 ** 18).toFixed(2);
 
       setItems([
         {
-          svg: svgIcons.credit_card_plus,
-          text: "Balance",
+          svg: availableIcon,
+          text: "Available",
           value: balance,
         },
         {
-          svg: svgIcons.cash,
-          text: "Total Deposit",
+          svg: depositsIcon,
+          text: "Deposits",
           value: totalDeposit,
         },
         {
-          svg: svgIcons.credit_card_plus,
-          text: "Withdrawn",
+          svg: claimedIcon,
+          text: "Claimed",
           value: withdrawn,
         },
         {
-          svg: svgIcons.trophy,
-          text: "Refferal Rewards",
-          value: refRewards,
+          svg: maxIcon,
+          text: "Max Payout",
+          value: maxPayout,
         },
       ]);
     }
@@ -63,7 +68,8 @@ export const ItemsBlock = ({ userInfo, userBalance }) => {
       {items.map(({ svg, text, value }, index) => (
         <div key={index} className={style.item}>
           <div className={style.top}>
-            <div className={style.icon}>{svg}</div>
+            <img src={svg} className={style.icon} alt="" />
+            {/* <div className={style.icon}>{svg}</div> */}
             <p>{text}</p>
           </div>
           <div className={style.bottom}>

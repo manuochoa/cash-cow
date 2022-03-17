@@ -159,10 +159,15 @@ export const SecondPage = ({
         {/* <UserBlock /> */}
         <div className={style.content}>
           {footerIndex === 0 && (
-            <ItemsBlock userBalance={userBalance} userInfo={userInfo} />
+            <ItemsBlock
+              claimable={claimable}
+              userBalance={userBalance}
+              userInfo={userInfo}
+            />
           )}
           {footerIndex === 1 && (
             <SecondBlock
+              claimable={claimable}
               userAddress={userAddress}
               setShow={setShow}
               isAllowed={isAllowed}
@@ -184,7 +189,11 @@ export const SecondPage = ({
       </div>
 
       <div className={style.desktop}>
-        <ItemsBlock userBalance={userBalance} userInfo={userInfo} />
+        <ItemsBlock
+          claimable={claimable}
+          userBalance={userBalance}
+          userInfo={userInfo}
+        />
         {/* <UserBlock className={style.userBlock} /> */}
         <div className={style.doubleBlock}>
           <SecondBlock

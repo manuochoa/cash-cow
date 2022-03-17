@@ -149,6 +149,8 @@ export const SecondPage = ({
           )}
           {footerIndex === 1 && (
             <SecondBlock
+              userAddress={userAddress}
+              setShow={setShow}
               isAllowed={isAllowed}
               investExample={investExample}
               getInitialInfo={getInitialInfo}
@@ -172,6 +174,8 @@ export const SecondPage = ({
         {/* <UserBlock className={style.userBlock} /> */}
         <div className={style.doubleBlock}>
           <SecondBlock
+            userAddress={userAddress}
+            setShow={setShow}
             isAllowed={isAllowed}
             investExample={investExample}
             getInitialInfo={getInitialInfo}

@@ -11,6 +11,8 @@ import {
 } from "../../../blockchain/functions";
 
 export const SecondBlock = ({
+  setShow,
+  userAddress,
   isAllowed,
   getInitialInfo,
   userInfo,
@@ -202,7 +204,13 @@ export const SecondBlock = ({
         </div>
 
         <div
-          onClick={isAllowed ? handleBuy : handleApprove}
+          onClick={
+            !userAddress
+              ? () => setShow(true)
+              : isAllowed
+              ? handleBuy
+              : handleApprove
+          }
           className={style.bottom}
         >
           {isAllowed ? "Deposit" : "Approve"}
@@ -214,12 +222,18 @@ export const SecondBlock = ({
       </div>
 
       <div className={style.numberField}>
-        <div onClick={handleRoll} className={style.bottom}>
+        <div
+          onClick={!userAddress ? () => setShow(true) : handleRoll}
+          className={style.bottom}
+        >
           Compound
         </div>
       </div>
       <div className={style.numberField}>
-        <div onClick={handleClaim} className={style.bottom}>
+        <div
+          onClick={!userAddress ? () => setShow(true) : handleClaim}
+          className={style.bottom}
+        >
           Claim
         </div>
       </div>

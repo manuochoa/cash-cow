@@ -20,10 +20,10 @@ export const App = () => {
     if (userAddress) {
       let userDetails = await getUserInfo(userAddress);
       console.log(userDetails);
-      setUserInfo(userDetails.receipt);
+      setClaimable(userDetails.available);
       setUserBalance(userDetails.balance);
       setIsAllowed(userDetails.allowance);
-      setClaimable(userDetails.available);
+      setUserInfo(userDetails.receipt);
     }
   };
 

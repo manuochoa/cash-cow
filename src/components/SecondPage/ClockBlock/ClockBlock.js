@@ -109,7 +109,11 @@ export const ClockBlock = ({
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>My Referral</p>
         <p className={style.right}>
-          <span className={style.green}> {userInfo?.upline?.toString()}</span>
+          <span className={style.green}>
+            {" "}
+            {userInfo?.upline?.toString().slice(0, 6)}...
+            {userInfo?.upline?.toString().slice(-10)}{" "}
+          </span>
           {/* <span> $CASH</span> */}
         </p>
       </div>

@@ -17,6 +17,7 @@ export const App = () => {
   const [siteInfo, setSiteInfo] = useState([]);
   const [investExample, setInvestExample] = useState([]);
   const [isAllowed, setIsAllowed] = useState(false);
+  const [walletProvider, setWalletProvider] = useState();
 
   const getInitialInfo = async () => {
     if (userAddress) {
@@ -78,6 +79,7 @@ export const App = () => {
       });
 
       await provider.enable();
+      setWalletProvider(provider);
       const web3 = new Web3(provider);
 
       // const accounts = await ethers.listAccounts();
@@ -116,6 +118,7 @@ export const App = () => {
   return (
     <div className={style.app}>
       <SecondPage
+        walletProvider={walletProvider}
         claimable={claimable}
         isAllowed={isAllowed}
         userBalance={userBalance}

@@ -13,6 +13,7 @@ import {
 import { toast } from "react-toastify";
 
 export const SecondBlock = ({
+  walletProvider,
   setShow,
   userAddress,
   isAllowed,
@@ -30,16 +31,21 @@ export const SecondBlock = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleBuy = async () => {
-    // if (refAddress === "") {
-    //   return toast.error("Please use a valid Referral Address");
-    // } else {
-    //   let hasDeposit = await checkDeposit(refAddress);
-    //   if (!hasDeposit) {
-    //     return toast.error("Ref should be an address with active deposits");
-    //   }
-    // }
+    if (refAddress === "") {
+      return toast.error("Please use a valid Referral Address");
+    } else {
+      let hasDeposit = await checkDeposit(refAddress);
+      if (!hasDeposit) {
+        return toast.error("Ref should be an address with active deposits");
+      }
+    }
     setIsLoading(true);
-    let receipt = await deposit(refAddress, number2, walletType);
+    let receipt = await deposit(
+      refAddress,
+      number2,
+      walletType,
+      walletProvider
+    );
     if (receipt) {
       console.log(receipt);
       toast.success("Transaction Sent Succesfully!");
@@ -50,7 +56,7 @@ export const SecondBlock = ({
 
   const handleClaim = async () => {
     setIsLoading(true);
-    let hasDeposit = await checkDeposit(userAddress);
+    let hasDeposit = await checkDeposit(userAddress, walletProvider);
     if (!hasDeposit) {
       setIsLoading(false);
       return toast.error("No deposits active");
@@ -66,7 +72,7 @@ export const SecondBlock = ({
 
   const handleRoll = async () => {
     setIsLoading(true);
-    let hasDeposit = await checkDeposit(userAddress);
+    let hasDeposit = await checkDeposit(userAddress, walletProvider);
     if (!hasDeposit) {
       setIsLoading(false);
       return toast.error("No deposits active");
@@ -83,7 +89,7 @@ export const SecondBlock = ({
   const handleApprove = async () => {
     setIsLoading(true);
     console.log("approve");
-    let receipt = await approveToken(walletType);
+    let receipt = await approveToken(walletType, walletProvider);
     if (receipt) {
       console.log(receipt);
       toast.success("Transaction Sent Succesfully!");

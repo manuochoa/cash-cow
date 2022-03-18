@@ -37,6 +37,7 @@ const userMock = {
 };
 
 export const SecondPage = ({
+  walletProvider,
   claimable,
   isAllowed,
   userBalance,
@@ -167,6 +168,7 @@ export const SecondPage = ({
           )}
           {footerIndex === 1 && (
             <SecondBlock
+              walletProvider={walletProvider}
               userBalance={userBalance}
               claimable={claimable}
               userAddress={userAddress}
@@ -198,6 +200,7 @@ export const SecondPage = ({
         {/* <UserBlock className={style.userBlock} /> */}
         <div className={style.doubleBlock}>
           <SecondBlock
+            walletProvider={walletProvider}
             userBalance={userBalance}
             userAddress={userAddress}
             setShow={setShow}

@@ -50,19 +50,16 @@ export const checkDeposit = async (userAddress) => {
   }
 };
 
-export const deposit = async (ref, _amount, walletType) => {
+export const deposit = async (ref, _amount, walletType, walletProvider) => {
   try {
     let amount = ethers.utils.parseUnits(_amount.toString(), "ether");
 
-    let newInstance = await faucetContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType, walletProvider);
 
     let tx = await newInstance.deposit(ref, amount, { gasLimit: 700000 });
 
-    console.log(tx, "tx");
-    tx.on("receipt", (receipt) => {
-      return receipt;
-    });
     let receipt = await tx.wait();
+    console.log(receipt);
 
     return receipt;
   } catch (error) {
@@ -75,9 +72,9 @@ export const deposit = async (ref, _amount, walletType) => {
   }
 };
 
-export const claim = async (walletType) => {
+export const claim = async (walletType, walletProvider) => {
   try {
-    let newInstance = await faucetContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType, walletProvider);
 
     let tx = await newInstance.claim({ gasLimit: 700000 });
 
@@ -93,9 +90,9 @@ export const claim = async (walletType) => {
   }
 };
 
-export const roll = async (walletType) => {
+export const roll = async (walletType, walletProvider) => {
   try {
-    let newInstance = await faucetContractInstance(walletType);
+    let newInstance = await faucetContractInstance(walletType, walletProvider);
 
     let tx = await newInstance.roll({ gasLimit: 700000 });
 
@@ -111,12 +108,12 @@ export const roll = async (walletType) => {
   }
 };
 
-export const approveToken = async (walletType) => {
+export const approveToken = async (walletType, walletProvider) => {
   try {
     const maxInt =
       "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
-    let newInstance = await tokenContractInstance(walletType);
+    let newInstance = await tokenContractInstance(walletType, walletProvider);
 
     let tx = await newInstance.approve(faucetAddress, maxInt, {
       gasLimit: 50000,
@@ -133,20 +130,9 @@ export const approveToken = async (walletType) => {
   }
 };
 
-const faucetContractInstance = async (walletType) => {
+const faucetContractInstance = async (walletType, walletProvider) => {
   if (walletType === "WALLET_CONNECT") {
-    let newProvider = new WalletConnectProvider({
-      rpc: {
-        97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
-      },
-      network: "binance testnet",
-      chainId: 97,
-      infuraId: null,
-    });
-
-    await newProvider.enable();
-
-    const web3Provider = new providers.Web3Provider(newProvider);
+    const web3Provider = new providers.Web3Provider(walletProvider);
 
     let signer = web3Provider.getSigner(0);
 
@@ -159,20 +145,9 @@ const faucetContractInstance = async (walletType) => {
   }
 };
 
-const tokenContractInstance = async (walletType) => {
+const tokenContractInstance = async (walletType, walletProvider) => {
   if (walletType === "WALLET_CONNECT") {
-    let newProvider = new WalletConnectProvider({
-      rpc: {
-        97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
-      },
-      network: "binance testnet",
-      chainId: 97,
-      infuraId: null,
-    });
-
-    await newProvider.enable();
-
-    const web3Provider = new providers.Web3Provider(newProvider);
+    const web3Provider = new providers.Web3Provider(walletProvider);
 
     let signer = web3Provider.getSigner(0);
 

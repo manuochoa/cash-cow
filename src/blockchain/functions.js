@@ -1,6 +1,7 @@
 import { abi } from "./abi";
 import { ethers, providers } from "ethers";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from "@walletconnect/ethereum-provider";
+// import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
 import { toast } from "react-toastify";
 
@@ -57,6 +58,10 @@ export const deposit = async (ref, _amount, walletType) => {
 
     let tx = await newInstance.deposit(ref, amount, { gasLimit: 700000 });
 
+    console.log(tx, "tx");
+    tx.on("receipt", (receipt) => {
+      return receipt;
+    });
     let receipt = await tx.wait();
 
     return receipt;

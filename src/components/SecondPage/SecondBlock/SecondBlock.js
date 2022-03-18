@@ -30,14 +30,14 @@ export const SecondBlock = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleBuy = async () => {
-    if (refAddress === "") {
-      return toast.error("Please use a valid Referral Address");
-    } else {
-      let hasDeposit = await checkDeposit(refAddress);
-      if (!hasDeposit) {
-        return toast.error("Ref should be an address with active deposits");
-      }
-    }
+    // if (refAddress === "") {
+    //   return toast.error("Please use a valid Referral Address");
+    // } else {
+    //   let hasDeposit = await checkDeposit(refAddress);
+    //   if (!hasDeposit) {
+    //     return toast.error("Ref should be an address with active deposits");
+    //   }
+    // }
     setIsLoading(true);
     let receipt = await deposit(refAddress, number2, walletType);
     if (receipt) {

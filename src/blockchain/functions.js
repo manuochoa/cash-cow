@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 
 let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
 let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
-let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
+// let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
+let faucetAddress = "0x0f6686611C1ec297ac8c72cFEe03A715011b125F";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",

@@ -99,6 +99,14 @@ export const SecondBlock = ({
     setIsLoading(false);
   };
 
+  const handleNumberChange = (num) => {
+    if (num < 0) {
+      setNumber2(0);
+    } else {
+      setNumber2(num);
+    }
+  };
+
   useEffect(() => {
     if (userInfo && userInfo.deposits) {
       let allowance = userInfo.allowance / 10 ** 18;
@@ -224,7 +232,7 @@ export const SecondBlock = ({
             className={style.number}
             value={number2}
             onChange={(e) => {
-              setNumber2(Number(e.target.value));
+              handleNumberChange(e.target.value);
             }}
           />
 
@@ -233,13 +241,13 @@ export const SecondBlock = ({
             <div className={style.arrow_buttons}>
               <button
                 className={style.btn}
-                onClick={() => setNumber2(number2 + 1)}
+                onClick={() => handleNumberChange(Number(number2) + 1)}
               >
                 {svgIcons.arrow_up}
               </button>
               <button
                 className={style.btn}
-                onClick={() => setNumber2(number2 - 1)}
+                onClick={() => handleNumberChange(Number(number2) - 1)}
               >
                 {svgIcons.arrow_down}
               </button>

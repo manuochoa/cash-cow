@@ -5,10 +5,10 @@ import WalletConnectProvider from "@walletconnect/ethereum-provider";
 import Web3 from "web3";
 import { toast } from "react-toastify";
 
-let tokenAddress = "0xaA1751D75cD5603ea870F4d71d289FbBd664134D";
-let vaultAddress = "0x3924C10cbaF0f3cf506a59b92E7BcAe215fa28a2";
+let tokenAddress = "0xA947046884fDDC230458448ef9C4A7cBc4703d50";
+let vaultAddress = "0x8c773FF7b4F78d638A50e9351eD7d5f5284b4415";
 // let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
-let faucetAddress = "0xB21a503414E0a11500e86F0a642C6007c32cd8f1";
+let faucetAddress = "0xBa9Cec669E12DeFA8741a3964F1EDaF30E8065b0";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -36,7 +36,7 @@ export const getUserInfo = async (userAddress) => {
 
     return {
       receipt,
-      available: available || "0",
+      available,
       balance,
       allowance: Number(allowance) > 0,
     };

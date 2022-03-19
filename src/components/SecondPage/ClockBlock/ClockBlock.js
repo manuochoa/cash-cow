@@ -3,7 +3,7 @@ import style from "./ClockBlock.module.scss";
 import clock from "../../../assets/png/clock.png";
 import { svgIcons } from "../../../assets/svg/svgIcons";
 import clsx from "clsx";
-import { claim, roll } from "../../../blockchain/functions";
+import { changeReferral, checkDeposit } from "../../../blockchain/functions";
 import { toast } from "react-toastify";
 
 let marketingWallet = "0x153B202F6C6e570f13C27371CdA6Ae2c8768Dca6";
@@ -12,27 +12,31 @@ export const ClockBlock = ({
   claimable,
   userInfo,
   getInitialInfo,
+  walletProvider,
   walletType,
 }) => {
   const [miners, setMiners] = useState("");
   const [busdBalance, setBusdBalance] = useState("");
   const [eggYield, setEggYield] = useState("");
   const [availableEarnings, setAvailbleEarnings] = useState("");
+  const [userHasDeposits, setUserHasDeposit] = useState(false);
+  const [refAddress, setRefAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleCompound = async () => {
-    let receipt = await roll(walletType);
+  const handleChange = async () => {
+    setIsLoading(true);
+    let hasDeposit = await checkDeposit(refAddress);
+    if (!hasDeposit) {
+      setIsLoading(false);
+      return toast.error("Ref should be an address with active deposits");
+    }
+    let receipt = await changeReferral(refAddress, walletType, walletProvider);
     if (receipt) {
       console.log(receipt);
+      toast.success("Transaction Sent Succesfully!");
       getInitialInfo();
     }
-  };
-
-  const handleClaim = async () => {
-    let receipt = await claim(walletType);
-    if (receipt) {
-      console.log(receipt);
-      getInitialInfo();
-    }
+    setIsLoading(false);
   };
 
   const copyToClipboard = (text) => {
@@ -40,7 +44,12 @@ export const ClockBlock = ({
     toast.success("Copied to clipboard");
   };
 
-  useEffect(() => {}, [userInfo]);
+  useEffect(() => {
+    if (userInfo && userInfo.deposits) {
+      console.log(userInfo, "clockblock");
+      setUserHasDeposit(userInfo.deposits > 0);
+    }
+  }, [userInfo]);
 
   return (
     <div className={style.clockBlock}>
@@ -130,6 +139,7 @@ export const ClockBlock = ({
           {/* <span> $CASH</span> */}
         </p>
       </div>
+
       <div className={clsx(style.field, style.field_second)}>
         <p className={style.left}>Marketing Wallet</p>
         <p className={style.right}>
@@ -144,11 +154,40 @@ export const ClockBlock = ({
           </button>
         </p>
       </div>
+      {userHasDeposits && (
+        <>
+          <div className={clsx(style.field, style.field_second)}>
+            <p className={style.left}>Change Referral</p>
+            <p className={style.right}>
+              <input
+                type="text"
+                className={style.address}
+                value={refAddress}
+                placeholder="New Address"
+                onChange={(e) => {
+                  setRefAddress(e.target.value);
+                }}
+                onPaste={(e) => {
+                  setRefAddress(e.target.value);
+                }}
+              />
+            </p>
+          </div>
+          <div className={clsx(style.field, style.field_second)}>
+            <button
+              onClick={handleChange}
+              className={isLoading ? style.bottomLoading : style.bottom}
+            >
+              Change
+            </button>
+          </div>
+        </>
+      )}
 
       <div className={style.buttons}>
         {/* <button onClick={handleClaim} className={style.firstBtn}>
           <p>
-            <span>Claim Rewards</span>
+          <span>Claim Rewards</span>
           </p>
         </button>
         <button onClick={handleCompound} className={style.secondBtn}>

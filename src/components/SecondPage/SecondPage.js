@@ -20,9 +20,9 @@ const footerItems = [
     text: "Stats",
   },
   {
-    icon: svgIcons.header1,
-    icon_selected: svgIcons.header1_selected,
-    text: "Mining",
+    icon: svgIcons.cash,
+    icon_selected: svgIcons.cash_selected,
+    text: "Deposit",
   },
   {
     icon: svgIcons.header2,
@@ -184,6 +184,7 @@ export const SecondPage = ({
             <ClockBlock
               claimable={claimable}
               getInitialInfo={getInitialInfo}
+              walletProvider={walletProvider}
               walletType={walletType}
               userInfo={userInfo}
             />
@@ -211,6 +212,7 @@ export const SecondPage = ({
             userInfo={userInfo}
           />
           <ClockBlock
+            walletProvider={walletProvider}
             claimable={claimable}
             getInitialInfo={getInitialInfo}
             walletType={walletType}

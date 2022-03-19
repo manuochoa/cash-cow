@@ -29,6 +29,7 @@ export const SecondBlock = ({
   const [number2, setNumber2] = useState(10);
   const [refAddress, setRefAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [userHasDeposits, setUserHasDeposit] = useState(false);
 
   const handleBuy = async () => {
     if (refAddress === "") {
@@ -99,15 +100,13 @@ export const SecondBlock = ({
   };
 
   useEffect(() => {
-    if (userInfo && userInfo.allowance) {
+    if (userInfo && userInfo.deposits) {
       let allowance = userInfo.allowance / 10 ** 18;
       let balance = userInfo.balance / 10 ** 18;
 
+      setUserHasDeposit(userInfo.deposits > 0);
       setBusdApproved(allowance);
       setBusdBalance(balance);
-      console.log("inside clock block", userInfo.allowance.toString(), {
-        userInfo,
-      });
     }
   }, [userInfo]);
 
@@ -196,22 +195,23 @@ export const SecondBlock = ({
       </div>
 
       <div className={style.numberField}>
-        <div className={style.top}>
-          {/*<p className={style.number}>10</p>*/}
-
-          <input
-            type="text"
-            className={style.address}
-            value={refAddress}
-            placeholder="Referral Address"
-            onChange={(e) => {
-              setRefAddress(e.target.value);
-            }}
-            onPaste={(e) => {
-              setRefAddress(e.target.value);
-            }}
-          />
-        </div>
+        {!userHasDeposits && (
+          <div className={style.top}>
+            {/*<p className={style.number}>10</p>*/}
+            <input
+              type="text"
+              className={style.address}
+              value={refAddress}
+              placeholder="Referral Address"
+              onChange={(e) => {
+                setRefAddress(e.target.value);
+              }}
+              onPaste={(e) => {
+                setRefAddress(e.target.value);
+              }}
+            />
+          </div>
+        )}
         <div className={style.top}>
           {/*<p className={style.number}>10</p>*/}
 

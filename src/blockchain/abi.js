@@ -463,6 +463,19 @@ export const abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_upline",
+        type: "address",
+      },
+    ],
+    name: "changeUpline",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "checkin",
     outputs: [],

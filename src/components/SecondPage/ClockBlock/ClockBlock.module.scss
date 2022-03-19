@@ -53,6 +53,54 @@
     }
   }
 
+  .address {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    text-align: right;
+
+    @include CenturyGothicBold();
+    font-size: 14px;
+    line-height: 20px;
+
+    @include desktop() {
+      font-size: 16px;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .bottom {
+    width: 100%;
+    padding: 14px 0;
+    background: #67f6c0;
+    @include CenturyGothicBold();
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    user-select: none;
+  }
+  .bottom:hover {
+    cursor: pointer;
+  }
+  .bottomLoading {
+    width: 100%;
+    padding: 14px 0;
+    background: #b1b3b297;
+    @include CenturyGothicBold();
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    user-select: none;
+  }
+
   .field {
     display: flex;
     justify-content: space-between;
@@ -93,6 +141,8 @@
     }
 
     .right {
+      text-align: right;
+      width: 50%;
       @include CenturyGothicBold();
       font-size: 14px;
       line-height: 20px;

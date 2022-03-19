@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
 let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
 // let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
-let faucetAddress = "0x0f6686611C1ec297ac8c72cFEe03A715011b125F";
+let faucetAddress = "0x3F1147E64223504DF26461744560e2eed1e83931";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -70,6 +70,18 @@ export const deposit = async (ref, _amount, walletType, walletProvider) => {
       window.alert(error.data.message);
     }
   }
+};
+
+// function changeUpline(address _upline) public
+
+export const changeReferral = async (ref, walletType, walletProvider) => {
+  let newInstance = await faucetContractInstance(walletType, walletProvider);
+
+  let tx = await newInstance.changeUpline(ref, { gasLimit: 700000 });
+
+  let receipt = await tx.wait();
+
+  return receipt;
 };
 
 export const claim = async (walletType, walletProvider) => {

@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { changeReferral, checkDeposit } from "../../../blockchain/functions";
 import { toast } from "react-toastify";
 
-let marketingWallet = "0x153B202F6C6e570f13C27371CdA6Ae2c8768Dca6";
+let marketingWallet = "0x14B97888B5Ee06413856dc05B1b0D8438e71994d";
 
 export const ClockBlock = ({
   claimable,

@@ -44,10 +44,10 @@ export const App = () => {
         method: "eth_chainId",
       });
 
-      if (chainId !== "0x61") {
+      if (chainId !== "0x38") {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x61" }],
+          params: [{ chainId: "0x38" }],
         });
       }
 
@@ -68,11 +68,11 @@ export const App = () => {
       console.log("hola");
       const provider = new WalletConnectProvider({
         rpc: {
-          //56: "https://bsc-dataseed.binance.org/",
-          97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+          56: "https://bsc-dataseed.binance.org/",
+          // 97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
         },
-        network: "binance testnet",
-        chainId: 97,
+        network: "binance",
+        chainId: 56,
         infuraId: null,
       });
 
@@ -94,11 +94,11 @@ export const App = () => {
     if (walletType === "WALLET_CONNECT") {
       const provider = new WalletConnectProvider({
         rpc: {
-          56: "https://bsc-dataseed.binance.org/",
+          56: "https://bsc-dataseed1.ninicoin.io/",
 
-          97: "https://speedy-nodes-nyc.moralis.io/1d19a6082204e3ecd8dcf0b9/bsc/testnet",
+          // 97: "https://speedy-nodes-nyc.moralis.io/1d19a6082204e3ecd8dcf0b9/bsc/testnet",
         },
-        chainId: 97,
+        chainId: 56,
         infuraId: null,
       });
       await provider.disconnect();

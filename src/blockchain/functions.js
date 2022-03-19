@@ -5,10 +5,10 @@ import WalletConnectProvider from "@walletconnect/ethereum-provider";
 import Web3 from "web3";
 import { toast } from "react-toastify";
 
-let tokenAddress = "0x0993bcC05b342Dd0afeeE82863e403C1b0eaFC74";
-let vaultAddress = "0x7b2FB0BE8843A281E3EF55c4a8a31B5690827b5e";
+let tokenAddress = "0xaA1751D75cD5603ea870F4d71d289FbBd664134D";
+let vaultAddress = "0x3924C10cbaF0f3cf506a59b92E7BcAe215fa28a2";
 // let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
-let faucetAddress = "0x3F1147E64223504DF26461744560e2eed1e83931";
+let faucetAddress = "0xB21a503414E0a11500e86F0a642C6007c32cd8f1";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -17,7 +17,7 @@ let tokenAbi = [
 ];
 
 let provider = new ethers.providers.JsonRpcProvider(
-  "https://data-seed-prebsc-1-s1.binance.org:8545/"
+  "https://bsc-dataseed1.ninicoin.io/"
 );
 
 let contractInstance = new ethers.Contract(faucetAddress, abi, provider);
@@ -34,7 +34,12 @@ export const getUserInfo = async (userAddress) => {
     let balance = await tokenInstance.balanceOf(userAddress);
     let allowance = await tokenInstance.allowance(userAddress, faucetAddress);
 
-    return { receipt, available, balance, allowance: Number(allowance) > 0 };
+    return {
+      receipt,
+      available: available || "0",
+      balance,
+      allowance: Number(allowance) > 0,
+    };
   } catch (error) {
     console.log(error, "getUserInfo");
   }

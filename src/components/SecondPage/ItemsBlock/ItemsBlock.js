@@ -32,7 +32,6 @@ export const ItemsBlock = ({ userInfo, userBalance, claimable }) => {
 
   useEffect(() => {
     if (userInfo) {
-      console.log(userInfo);
       let balance = Number(claimable.net_payout / 10 ** 18).toFixed(2);
       let totalDeposit = Number(userInfo.deposits / 10 ** 18).toFixed(2);
       let withdrawn = Number(userInfo.payouts / 10 ** 18).toFixed(2);

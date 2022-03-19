@@ -46,7 +46,6 @@ export const ClockBlock = ({
 
   useEffect(() => {
     if (userInfo && userInfo.deposits) {
-      console.log(userInfo, "clockblock");
       setUserHasDeposit(userInfo.deposits > 0);
     }
   }, [userInfo]);

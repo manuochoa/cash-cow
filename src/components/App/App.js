@@ -22,7 +22,7 @@ export const App = () => {
   const getInitialInfo = async () => {
     if (userAddress) {
       let userDetails = await getUserInfo(userAddress);
-      console.log(userDetails);
+
       setClaimable(userDetails.available);
       setUserBalance(userDetails.balance);
       setIsAllowed(userDetails.allowance);
@@ -43,8 +43,6 @@ export const App = () => {
       const chainId = await window.ethereum.request({
         method: "eth_chainId",
       });
-
-      console.log(chainId);
 
       if (chainId !== "0x61") {
         await window.ethereum.request({
@@ -94,7 +92,6 @@ export const App = () => {
 
   const disconnectWallet = async () => {
     if (walletType === "WALLET_CONNECT") {
-      console.log("disconnect", walletType);
       const provider = new WalletConnectProvider({
         rpc: {
           56: "https://bsc-dataseed.binance.org/",

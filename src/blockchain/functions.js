@@ -59,7 +59,6 @@ export const deposit = async (ref, _amount, walletType, walletProvider) => {
     let tx = await newInstance.deposit(ref, amount, { gasLimit: 700000 });
 
     let receipt = await tx.wait();
-    console.log(receipt);
 
     return receipt;
   } catch (error) {

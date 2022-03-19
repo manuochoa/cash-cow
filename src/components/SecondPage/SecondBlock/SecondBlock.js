@@ -89,7 +89,7 @@ export const SecondBlock = ({
 
   const handleApprove = async () => {
     setIsLoading(true);
-    console.log("approve");
+
     let receipt = await approveToken(walletType, walletProvider);
     if (receipt) {
       console.log(receipt);

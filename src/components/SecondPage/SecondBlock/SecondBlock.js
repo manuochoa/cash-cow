@@ -103,8 +103,12 @@ export const SecondBlock = ({
     if (userInfo && userInfo.deposits) {
       let allowance = userInfo.allowance / 10 ** 18;
       let balance = userInfo.balance / 10 ** 18;
+      let deposit = userInfo.deposits > 0;
+      if (deposit) {
+        setRefAddress(userInfo.upline);
+      }
 
-      setUserHasDeposit(userInfo.deposits > 0);
+      setUserHasDeposit(deposit);
       setBusdApproved(allowance);
       setBusdBalance(balance);
     }

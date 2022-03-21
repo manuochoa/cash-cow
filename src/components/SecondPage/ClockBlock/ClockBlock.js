@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 let marketingWallet = "0x14B97888B5Ee06413856dc05B1b0D8438e71994d";
 
 export const ClockBlock = ({
+  siteInfo,
   claimable,
   userInfo,
   getInitialInfo,
@@ -49,6 +50,9 @@ export const ClockBlock = ({
       setUserHasDeposit(userInfo.deposits > 0);
     }
   }, [userInfo]);
+  useEffect(() => {
+    console.log(siteInfo, "siteInfo");
+  }, [siteInfo]);
 
   return (
     <div className={style.clockBlock}>
@@ -122,7 +126,7 @@ export const ClockBlock = ({
         <p className={style.right}>
           <span className={style.green}>
             {" "}
-            {Number(userInfo?.referrals) || "0"}/15
+            {Number(userInfo?.referrals) || "0"}
           </span>
           {/* <span> $</span> */}
         </p>
@@ -151,6 +155,27 @@ export const ClockBlock = ({
           >
             {svgIcons.union}
           </button>
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Total Deposited</p>
+        <p className={style.right}>
+          <span className={style.green}>
+            {" "}
+            {Number(siteInfo?._total_deposited / 10 ** 18).toFixed(2) || "0"}
+          </span>
+          <span> $CASH</span>
+          {/* <span> $</span> */}
+        </p>
+      </div>
+      <div className={clsx(style.field, style.field_second)}>
+        <p className={style.left}>Total Users</p>
+        <p className={style.right}>
+          <span className={style.green}>
+            {" "}
+            {Number(siteInfo?._total_users) || "0"}
+          </span>
+          {/* <span> $</span> */}
         </p>
       </div>
       {userHasDeposits && (

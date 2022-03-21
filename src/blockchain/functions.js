@@ -53,6 +53,17 @@ export const getUsdValue = async () => {
   }
 };
 
+export const contractInfo = async () => {
+  try {
+    let info = await contractInstance.contractInfo();
+
+    console.log(info, "info");
+    return info;
+  } catch (error) {
+    console.log(error, "usdValue");
+  }
+};
+
 export const getUserInfo = async (userAddress) => {
   try {
     let receipt = await contractInstance.users(userAddress);

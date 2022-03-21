@@ -184,6 +184,7 @@ export const SecondPage = ({
           )}
           {footerIndex === 2 && (
             <ClockBlock
+              siteInfo={siteInfo}
               claimable={claimable}
               getInitialInfo={getInitialInfo}
               walletProvider={walletProvider}
@@ -215,6 +216,7 @@ export const SecondPage = ({
             userInfo={userInfo}
           />
           <ClockBlock
+            siteInfo={siteInfo}
             walletProvider={walletProvider}
             claimable={claimable}
             getInitialInfo={getInitialInfo}

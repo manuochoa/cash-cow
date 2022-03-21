@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import style from "./App.module.scss";
 import { SecondPage } from "../SecondPage/SecondPage";
-import { getUserInfo, getUsdValue } from "../../blockchain/functions";
+import {
+  getUserInfo,
+  getUsdValue,
+  contractInfo,
+} from "../../blockchain/functions";
 import { ethers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
@@ -22,7 +26,9 @@ export const App = () => {
 
   const getInitialInfo = async () => {
     let value = await getUsdValue();
+    let info = await contractInfo();
     setUsdValue(value);
+    setSiteInfo(info);
     if (userAddress) {
       let userDetails = await getUserInfo(userAddress);
 

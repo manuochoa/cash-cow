@@ -295,6 +295,17 @@ export const SecondBlock = ({
           Claim
         </div>
       </div>
+      <div className={style.numberField}>
+        <a
+          href="https://poocoin.app/swap/?outputCurrency=0xa947046884fddc230458448ef9c4a7cbc4703d50"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className={isLoading ? style.bottomLoading : style.bottom}>
+            Buy $CASH
+          </div>
+        </a>
+      </div>
     </div>
   );
 };

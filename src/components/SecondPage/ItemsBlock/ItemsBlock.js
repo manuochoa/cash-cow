@@ -80,14 +80,11 @@ export const ItemsBlock = ({ usdValue, userInfo, userBalance, claimable }) => {
             <p>{text}</p>
           </div>
           <div className={style.bottom}>
-            <div className={style.bottom}>
-              <p>{value}</p>
-              <p>$CASH</p>
-            </div>
-            <div className={style.bottom}>
-              <p>~{usd}</p>
-              <p>BUSD</p>
-            </div>
+            <p>{value}</p>
+            <p>$CASH</p>
+            <p>/</p>
+            <p>~{usd}</p>
+            <p>USD</p>
           </div>
         </div>
       ))}

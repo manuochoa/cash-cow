@@ -9,6 +9,7 @@ let tokenAddress = "0xA947046884fDDC230458448ef9C4A7cBc4703d50";
 let vaultAddress = "0x8c773FF7b4F78d638A50e9351eD7d5f5284b4415";
 // let faucetAddress = "0xF9D1bD94A734f26A1A77223a57c6b926b4219063";
 let faucetAddress = "0xBa9Cec669E12DeFA8741a3964F1EDaF30E8065b0";
+let pancakeRouter = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 
 let tokenAbi = [
   "function allowance(address owner, address spender) external view returns (uint256)",
@@ -22,10 +23,35 @@ let provider = new ethers.providers.JsonRpcProvider(
 
 let contractInstance = new ethers.Contract(faucetAddress, abi, provider);
 let tokenInstance = new ethers.Contract(tokenAddress, tokenAbi, provider);
+let pancakeInstance = new ethers.Contract(
+  pancakeRouter,
+  [
+    "function getAmountsOut(uint amountIn, address[] path) external view returns (uint[] memory amounts)",
+  ],
+  provider
+);
 
 // function deposit(address _upline, uint256 _amount) external {
 // function claim() external {
 // function roll() public {
+
+export const getUsdValue = async () => {
+  try {
+    let convertion = await pancakeInstance.getAmountsOut(
+      "1000000000000000000",
+      [
+        "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+        "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
+        "0xA947046884fDDC230458448ef9C4A7cBc4703d50",
+      ]
+    );
+
+    console.log(convertion[2].toString(), "convertion");
+    return convertion[2];
+  } catch (error) {
+    console.log(error, "usdValue");
+  }
+};
 
 export const getUserInfo = async (userAddress) => {
   try {
@@ -61,7 +87,7 @@ export const deposit = async (ref, _amount, walletType, walletProvider) => {
 
     let newInstance = await faucetContractInstance(walletType, walletProvider);
 
-    let tx = await newInstance.deposit(ref, amount, { gasLimit: 700000 });
+    let tx = await newInstance.deposit(ref, amount, { gasLimit: 1000000 });
 
     let receipt = await tx.wait();
 
@@ -81,7 +107,7 @@ export const deposit = async (ref, _amount, walletType, walletProvider) => {
 export const changeReferral = async (ref, walletType, walletProvider) => {
   let newInstance = await faucetContractInstance(walletType, walletProvider);
 
-  let tx = await newInstance.changeUpline(ref, { gasLimit: 700000 });
+  let tx = await newInstance.changeUpline(ref, { gasLimit: 1000000 });
 
   let receipt = await tx.wait();
 
@@ -92,7 +118,7 @@ export const claim = async (walletType, walletProvider) => {
   try {
     let newInstance = await faucetContractInstance(walletType, walletProvider);
 
-    let tx = await newInstance.claim({ gasLimit: 700000 });
+    let tx = await newInstance.claim({ gasLimit: 2000000 });
 
     let receipt = await tx.wait();
 
@@ -110,7 +136,7 @@ export const roll = async (walletType, walletProvider) => {
   try {
     let newInstance = await faucetContractInstance(walletType, walletProvider);
 
-    let tx = await newInstance.roll({ gasLimit: 700000 });
+    let tx = await newInstance.roll({ gasLimit: 2000000 });
 
     let receipt = await tx.wait();
 

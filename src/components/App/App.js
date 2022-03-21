@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./App.module.scss";
 import { SecondPage } from "../SecondPage/SecondPage";
-import { getUserInfo } from "../../blockchain/functions";
+import { getUserInfo, getUsdValue } from "../../blockchain/functions";
 import { ethers } from "ethers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3 from "web3";
@@ -18,8 +18,11 @@ export const App = () => {
   const [investExample, setInvestExample] = useState([]);
   const [isAllowed, setIsAllowed] = useState(false);
   const [walletProvider, setWalletProvider] = useState();
+  const [usdValue, setUsdValue] = useState();
 
   const getInitialInfo = async () => {
+    let value = await getUsdValue();
+    setUsdValue(value);
     if (userAddress) {
       let userDetails = await getUserInfo(userAddress);
 
@@ -115,6 +118,7 @@ export const App = () => {
   return (
     <div className={style.app}>
       <SecondPage
+        usdValue={usdValue}
         walletProvider={walletProvider}
         claimable={claimable}
         isAllowed={isAllowed}

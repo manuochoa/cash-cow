@@ -15,7 +15,7 @@
 
   .item {
     padding: 16px 16px 18px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 0px 12px 26px rgba(30, 33, 85, 0.04);
     border-radius: 12px;
 
@@ -26,6 +26,7 @@
     .top {
       display: flex;
       align-items: center;
+      justify-content: center;
 
       .icon {
         width: 18px;
@@ -58,13 +59,13 @@
           line-height: 26px;
         }
       }
-
     }
 
     .bottom {
       margin-top: 8px;
       display: flex;
       align-items: center;
+      justify-content: space-evenly;
 
       @include desktop() {
         margin-top: 16px;
@@ -82,10 +83,20 @@
         }
 
         &:nth-child(1) {
-          color: #67F6C0;
+          color: #67f6c0;
+        }
+        &:nth-child(3) {
+          color: #67f6c0;
         }
 
         &:nth-child(2) {
+          margin-left: 8px;
+
+          @include desktop() {
+            margin-left: 12px;
+          }
+        }
+        &:nth-child(4) {
           margin-left: 8px;
 
           @include desktop() {
